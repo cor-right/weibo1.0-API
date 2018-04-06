@@ -2,71 +2,71 @@
 
 
 <!-- TOC -->
+- [1.1 Tips](#11-Tips)
+- [1.2 用户模块](#12-用户模块)
+	- [1.2.1 用户登录](#121-用户登录)
+	- [1.2.2 修改密码](#122-修改密码)
+	- [1.2.3 用户注销](#123-用户注销)
+- [1.3 微博统计信息模块](#13-微博统计信息模块)
+	- [1.3.1 统计信息查询](#131-统计信息查询)
+	- [1.2.1 用户登录](#121-用户登录)
+	- [1.2.1 用户登录](#121-用户登录)
+<!-- /TOC -->
 
 
-## 1.1. tips
+## 1.1 tips
 
 - 单用户登录
 - code :
   - 0 : 一切正常
-  - 1 : 直接将 data 展示给用户
+  - 1 : 直接将message展示给用户
 
 ---
 
 ## 1.2. 账户相关
 
-### 1.2.1. 登录
+### 1.2.1 用户登录
 
-- POST /weibo/login
+- POST /api/user/login
 - payload :
-
 ```json
 {
-    "idNumber": "2015111363",
-    "password": "123456789"
+  "username": "administrator",
+  "password": "adminOfSystem"
 }
 ```
-
 - return :
-  - systemId : 当前用户Id
-  - token : 权限token
-
 ```json
 {
-    "code": 0,
-    "data": {
-        "systemId": 12,
-        "token": "asdfgh"
-    }
+  "code" : 0,
+  "message" : "",
+  "data" : {
+    "token" : "SDF23SFW84ASF65S",
+    "username" : "administrator",
+    "lastLogin" : "2015-5-3 18:00:00"
+  }
 }
 ```
 
----
-
-### 1.2.2. 修改密码
+### 1.2.2 修改密码
 
 - PUT /weibo/change-password
 - payload :
-
 ```json
 {
-    "systemId": 123,
-    "oldPassword": "12345",
-    "newPassword": "234567"
+    "oldpasswd": "adminOfSystem",
+    "newpasswd": "newpasswdOfAdmin"
 }
 ```
-
 - return :
-
 ```json
 {
-    "code": 0,
-    "data": true
+  "code": 0,
+  "message" : "",
+  "data": {}
 }
 ```
-
 ---
-
 ## 1.3. 获取微博
 
 - GET /weibo/weibos
@@ -171,8 +171,6 @@
     ]
 }
 ```
-
-
 ---
 
 ### 1.4.4. 某日/今日微博评论数最多前五
