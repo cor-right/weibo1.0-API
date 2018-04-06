@@ -32,7 +32,7 @@
 ```json
 {
   "username": "administrator",
-  "password": "adminOfSystem"
+  "passwd": "adminOfSystem"
 }
 ```
 - return :

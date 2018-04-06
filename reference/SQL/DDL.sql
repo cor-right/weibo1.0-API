@@ -4,11 +4,12 @@ CREATE TABLE `t_user` (
   `uid` char(32) NOT NULL,
   `username` varchar(32) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
   `passwd` char(32) NOT NULL,
-  `token` char(32) NOT NULL,
-  `lastLogin` varchar(64) NOT NULL,
+  `token` char(32) DEFAULT NULL,
+  `lastLogin` char(32) DEFAULT NULL,
   PRIMARY KEY (`uid`),
   UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 # 用户登陆日志表
 # `t_user_log`

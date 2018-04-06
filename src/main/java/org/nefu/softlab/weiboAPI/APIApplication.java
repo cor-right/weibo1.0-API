@@ -2,7 +2,7 @@ package org.nefu.softlab.weiboAPI;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * Created by Jiaxu_Zou on 2018-4-6
@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
  *
  */
 @SpringBootApplication
-@Transactional
+@EnableTransactionManagement
 public class APIApplication {
 
     public static void main(String [] args) {
