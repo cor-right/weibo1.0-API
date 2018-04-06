@@ -6,13 +6,33 @@ package org.nefu.softlab.weiboAPI.core.PO;
 public class Log {
     private String logid;
 
-    private Integer count;
+    private Integer count;         // 登录次数
 
-    private String ip;
+    private String useragent;
 
-    private String timestamp;
+    private String ip;                // 客户端IP地址
 
-    private String lastlogin;
+    private String hostname;    // 客户端主机名
+
+    private String timestamp;   // 时间戳
+
+    private String lastlogin;       // 上一条记录的id
+
+    public String getUseragent() {
+        return useragent;
+    }
+
+    public void setUseragent(String useragent) {
+        this.useragent = useragent;
+    }
+
+    public String getHostname() {
+        return hostname;
+    }
+
+    public void setHostname(String hostname) {
+        this.hostname = hostname;
+    }
 
     public String getLogid() {
         return logid;

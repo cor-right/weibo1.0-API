@@ -7,13 +7,18 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by Jiaxu_Zou on 2018-4-6
- *
  */
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {
+
     @Override
-    public User getUserByUsernameAndPasswd() {
+    public User getUserByUsernameAndPasswd(User user) {
         return null;
+    }
+
+    @Override
+    public boolean addLoginRecord(User user) {
+        return false;
     }
 }

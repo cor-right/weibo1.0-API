@@ -2,6 +2,8 @@ package org.nefu.softlab.weiboAPI.web;
 
 import org.nefu.softlab.weiboAPI.biz.service.UserService;
 import org.nefu.softlab.weiboAPI.common.RESTData;
+import org.nefu.softlab.weiboAPI.common.util.LogUtil;
+import org.nefu.softlab.weiboAPI.core.PO.Log;
 import org.nefu.softlab.weiboAPI.core.PO.User;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,8 +46,15 @@ public class UserAPI {
         // 检查参数是否存在
         if (user.getUsername() == null || user.getPasswd() == null || user.getUsername().trim().equals("") == true || user.getPasswd().trim().equals("") == true)
             return new RESTData(1, "用户名或密码不能为空");
-        // 查询
-        return null;
+        // 检测
+        user = userService.getUserByUsernameAndPasswd(user);
+        if (user == null)
+            return new RESTData(1, "用户名或密码不匹配");
+        // 构建新的登陆记录
+        Log newLogRecord = LogUtil.getLog(request, userService.getLastLog(user));
+        // 添加登陆记录
+        return userService.addLoginRecord(user) == true ? new RESTData()
+                : new RESTData(1, "服务器无法记录您的登录记录，请稍后重试");
     }
 
 
