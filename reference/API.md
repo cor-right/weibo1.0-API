@@ -100,7 +100,7 @@
   "code" : 0,
   "message" : "",
   "data" : [
-    "node_1" : {
+    {
       "count" : 158267961,
       "size" : 333713266496.0,
       "avgSize" : 2108,
@@ -108,7 +108,7 @@
       "totalIndexSize" : 7301666736.0,
       "status" : 1.0
     },
-    "node_2" : {
+    {
       "count" : 158267961,
       "size" : 333713266496.0,
       "avgSize" : 2108,
@@ -116,7 +116,7 @@
       "totalIndexSize" : 7301666736.0,
       "status" : 1.0
     },
-    "node_3" : {
+    {
       "count" : 158267961,
       "size" : 333713266496.0,
       "avgSize" : 2108,
@@ -124,7 +124,7 @@
       "totalIndexSize" : 7301666736.0,
       "status" : 1.0
     },
-    "node_4" : {
+   {
       "count" : 158267961,
       "size" : 333713266496.0,
       "avgSize" : 2108,
