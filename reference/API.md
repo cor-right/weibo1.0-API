@@ -9,8 +9,8 @@
 	- [1.2.3 用户注销](#123-用户注销)
 - [1.3 微博统计信息模块](#13-微博统计信息模块)
 	- [1.3.1 统计信息查询](#131-统计信息查询)
-	- [1.2.1 用户登录](#121-用户登录)
-	- [1.2.1 用户登录](#121-用户登录)
+- [1.4 微博模块](#14-微博模块)
+	
 <!-- /TOC -->
 
 
@@ -23,7 +23,7 @@
 
 ---
 
-## 1.2. 账户相关
+## 1.2. 用户模块
 
 ### 1.2.1 用户登录
 
@@ -36,6 +36,8 @@
 }
 ```
 - return :
+    - token：登陆令牌
+    - lastLogin：上次登陆时间的时间戳
 ```json
 {
   "code" : 0,
@@ -50,7 +52,7 @@
 
 ### 1.2.2 修改密码
 
-- PUT /weibo/change-password
+- PUT /api/user/passwd
 - payload :
 ```json
 {
@@ -66,10 +68,78 @@
   "data": {}
 }
 ```
----
-## 1.3. 获取微博
 
-- GET /weibo/weibos
+### 1.2.3 用户注销
+
+- DELETE /api/user/login
+- return :
+```json
+{
+  "code" : 0,
+  "message" : "",
+  "data" : {}
+}
+```
+
+----
+
+## 1.3 微博统计信息模块
+
+### 1.3.1 统计信息查询
+
+- GET /api/statistics
+- return :
+    - count：微博记录数
+    - size：微博记录所使用的内存大小（单位：字节）
+    - avgSize：每条微博的平均内存大小（单位：字节）
+    - storageSize：当前分配的内存大小（单位：字节）
+    - totalIndexSize：索引大小（单位：字节）
+    - status：数据库状态（1.0：正常状态）
+```json
+{
+  "code" : 0,
+  "message" : "",
+  "data" : [
+    "node_1" : {
+      "count" : 158267961,
+      "size" : 333713266496.0,
+      "avgSize" : 2108,
+      "storageSize" :  337709246048.0,
+      "totalIndexSize" : 7301666736.0,
+      "status" : 1.0
+    },
+    "node_2" : {
+      "count" : 158267961,
+      "size" : 333713266496.0,
+      "avgSize" : 2108,
+      "storageSize" :  337709246048.0,
+      "totalIndexSize" : 7301666736.0,
+      "status" : 1.0
+    },
+    "node_3" : {
+      "count" : 158267961,
+      "size" : 333713266496.0,
+      "avgSize" : 2108,
+      "storageSize" :  337709246048.0,
+      "totalIndexSize" : 7301666736.0,
+      "status" : 1.0
+    },
+    "node_4" : {
+      "count" : 158267961,
+      "size" : 333713266496.0,
+      "avgSize" : 2108,
+      "storageSize" :  337709246048.0,
+      "totalIndexSize" : 7301666736.0,
+      "status" : 1.0
+    }
+  ]
+}
+```
+
+
+----
+
+## 1.4
 ```json
 {
     "startTime":"2010/11/11",
