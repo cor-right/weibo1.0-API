@@ -84,6 +84,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean deleteLogin(User user) {
+        user.setToken(null);
+        return userMapper.updateByPrimaryKey(user) != 0 ? true : false;
+    }
+
+    @Override
     public User getUserByToken(String token) {
         return userMapper.selectUserByToken(token);
     }

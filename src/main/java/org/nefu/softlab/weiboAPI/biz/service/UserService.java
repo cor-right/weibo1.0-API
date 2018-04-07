@@ -57,6 +57,14 @@ public interface UserService {
     boolean setNewPasswd(User user, String newpasswd);
 
     /**
+     * 用户注销
+     * 具体逻辑是，将token在数据库中置为空
+     * @param user
+     * @return true/false
+     */
+    boolean deleteLogin(User user);
+
+    /**
      * 根据token获取用户
      * @param token
      * @return user/null

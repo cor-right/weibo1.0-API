@@ -1,5 +1,6 @@
 package org.nefu.softlab.weiboAPI.web;
 
+import com.mongodb.util.JSON;
 import org.nefu.softlab.weiboAPI.biz.service.UserService;
 import org.nefu.softlab.weiboAPI.common.RESTData;
 import org.nefu.softlab.weiboAPI.common.util.JsonUtil;
@@ -116,6 +117,22 @@ public class UserAPI {
         // 设置新密码
         return userService.setNewPasswd(user, newpasswd) == true ? new RESTData()
                 : new RESTData(1, "密码修改失败，请稍后重试");
+    }
+
+    /**
+     * 用户注销登录
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "login", method = RequestMethod.DELETE)
+    public RESTData deleteLogin(HttpServletRequest request) {
+        User user = userService.getUserByToken(TokenUtil.getToken(request));
+        logger.info("DELETE Delete Login : " + JsonUtil.getJsonString(user));
+        if (user == null)   // 登陆状态不正确
+            return new RESTData(1, "请检查当前登陆状态");
+        // 执行注销逻辑
+        return userService.deleteLogin(user) == true ? new RESTData()
+                : new RESTData(1, "注销失败，请稍后重试");
     }
 
 
