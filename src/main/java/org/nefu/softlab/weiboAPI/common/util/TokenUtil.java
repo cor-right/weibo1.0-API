@@ -19,7 +19,6 @@ public class TokenUtil {
      * @return token
      */
     public static String getToken(HttpServletRequest request) {
-        System.out.println(request.getHeader("token"));
         return request.getHeader("token");
     }
 

@@ -1,9 +1,6 @@
 package org.nefu.softlab.weiboAPI.core.DAO.mongo;
 
-import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
-import com.mongodb.client.FindIterable;
-import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.nefu.softlab.weiboAPI.common.constant.MongoConfig;
 import org.slf4j.Logger;
@@ -21,8 +18,9 @@ import java.util.stream.Stream;
  * 用于获取MongoDB的统计信息的DAO
  */
 @Repository
-public class StatisticsDao {
+public class StatisticsDao extends BaseDao{
 
+    // connections
     private static final List<MongoClient> clients;
     private static final List<MongoDatabase> databases;
 
@@ -41,15 +39,28 @@ public class StatisticsDao {
         logger.info(clients.size() + " connections been built successfully ");
     }
 
-
     /**
-     * 获取指定集合中文档的信息
-     * @param collection
-     * @return
+     * 获取多台主机的数据量统计信息形成的列表
+     * @return List of Map
      */
-    public Map<String, Object> getDocumentsCount(DBCollection collection) {
-        return null;
+    public List<Map<String, Object>> getSplitedStatistics() {
+        // 遍历数据库的连接获取DBCollection，藉此形成Map的List
+        List<Map<String, Object>> returnList = new ArrayList<>();
+        clients.stream()
+                .forEach(client -> {
+                    Map data = super.getDocumentsProperties(client.getDB(MongoConfig.database).getCollection(MongoConfig.collection)); // 调用basedao中的方法
+                    data.put("host", client.getAddress());  // 加入basedao中无法加入的属性
+                    returnList.add(data);   // 添加到返回值当中
+                });
+        return returnList;
     }
 
 
+    public static List<MongoClient> getClients() {
+        return clients;
+    }
+
+    public static List<MongoDatabase> getDatabases() {
+        return databases;
+    }
 }

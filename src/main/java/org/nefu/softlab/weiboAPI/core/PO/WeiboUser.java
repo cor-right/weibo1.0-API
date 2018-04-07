@@ -1,9 +1,11 @@
 package org.nefu.softlab.weiboAPI.core.PO;
 
+import java.io.Serializable;
+
 /**
  * Created by Jiaxu_Zou on 2018-4-6
  */
-public class WeiboUser {
+public class WeiboUser implements Serializable {
     private String uid;
 
     private String nickname;
