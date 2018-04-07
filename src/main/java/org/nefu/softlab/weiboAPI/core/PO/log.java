@@ -4,7 +4,10 @@ package org.nefu.softlab.weiboAPI.core.PO;
  * Created by Jiaxu_Zou on 2018-4-6
  */
 public class Log {
+
     private String logid;
+
+    private String uid;
 
     private Integer count;         // 登录次数
 
@@ -17,6 +20,17 @@ public class Log {
     private String timestamp;   // 时间戳
 
     private String lastlogin;       // 上一条记录的id
+
+    // getter and setter
+
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
 
     public String getUseragent() {
         return useragent;

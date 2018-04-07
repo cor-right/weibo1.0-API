@@ -13,12 +13,24 @@ public class LogSqlProvider {
             sql.VALUES("logid", "#{logid,jdbcType=CHAR}");
         }
         
+        if (record.getUid() != null) {
+            sql.VALUES("uid", "#{uid,jdbcType=CHAR}");
+        }
+        
         if (record.getCount() != null) {
             sql.VALUES("count", "#{count,jdbcType=INTEGER}");
         }
         
         if (record.getIp() != null) {
             sql.VALUES("ip", "#{ip,jdbcType=CHAR}");
+        }
+        
+        if (record.getUseragent() != null) {
+            sql.VALUES("useragent", "#{useragent,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getHostname() != null) {
+            sql.VALUES("hostname", "#{hostname,jdbcType=VARCHAR}");
         }
         
         if (record.getTimestamp() != null) {
@@ -36,12 +48,24 @@ public class LogSqlProvider {
         SQL sql = new SQL();
         sql.UPDATE("t_user_log");
         
+        if (record.getUid() != null) {
+            sql.SET("uid = #{uid,jdbcType=CHAR}");
+        }
+        
         if (record.getCount() != null) {
             sql.SET("count = #{count,jdbcType=INTEGER}");
         }
         
         if (record.getIp() != null) {
             sql.SET("ip = #{ip,jdbcType=CHAR}");
+        }
+        
+        if (record.getUseragent() != null) {
+            sql.SET("useragent = #{useragent,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getHostname() != null) {
+            sql.SET("hostname = #{hostname,jdbcType=VARCHAR}");
         }
         
         if (record.getTimestamp() != null) {

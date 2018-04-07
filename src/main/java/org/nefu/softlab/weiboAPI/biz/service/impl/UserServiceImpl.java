@@ -1,6 +1,7 @@
 package org.nefu.softlab.weiboAPI.biz.service.impl;
 
 import org.nefu.softlab.weiboAPI.biz.service.UserService;
+import org.nefu.softlab.weiboAPI.common.util.MD5Util;
 import org.nefu.softlab.weiboAPI.common.util.TokenUtil;
 import org.nefu.softlab.weiboAPI.core.DAO.mapper.LogMapper;
 import org.nefu.softlab.weiboAPI.core.DAO.mapper.UserMapper;
@@ -57,5 +58,16 @@ public class UserServiceImpl implements UserService {
             return null;
         else
             return logMapper.selectByPrimaryKey(user.getLastlogin());
+    }
+
+    @Override
+    public boolean setNewPasswd(User user, String newpasswd) {
+        user.setPasswd(MD5Util.MD5(newpasswd));
+        return userMapper.updateByPrimaryKey(user) != 0 ? true : false;
+    }
+
+    @Override
+    public User getUserByToken(String token) {
+        return userMapper.selectUserByToken(token);
     }
 }

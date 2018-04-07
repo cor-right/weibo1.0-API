@@ -15,7 +15,7 @@ public interface UserService {
     /**
      * 根据用户名和密码获取用户
      * @param user
-     * @return
+     * @return user/null
      */
     User getUserByUsernameAndPasswd(User user);
 
@@ -24,7 +24,7 @@ public interface UserService {
      * @param user
      * @param log
      * @param oldLog
-     * @return map
+     * @return map/null
      */
     Map addLoginRecord(User user, Log log, Log oldLog);
 
@@ -32,8 +32,22 @@ public interface UserService {
     /**
      * 获取用户最近的登录记录
      * @param user
-     * @return log
+     * @return log/null
      */
     Log getLastLog(User user);
+
+    /**
+     * 为用户设置新的密码
+     * @param user
+     * @return true/false
+     */
+    boolean setNewPasswd(User user, String newpasswd);
+
+    /**
+     * 根据token获取用户
+     * @param token
+     * @return user/null
+     */
+    User getUserByToken(String token);
 
 }

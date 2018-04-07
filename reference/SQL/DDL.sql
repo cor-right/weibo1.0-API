@@ -15,12 +15,16 @@ CREATE TABLE `t_user` (
 # `t_user_log`
 CREATE TABLE `t_user_log` (
   `logid` char(32) NOT NULL,
+  `uid` char(32) DEFAULT NULL,
   `count` int(11) DEFAULT '0',
   `ip` char(16) DEFAULT NULL,
+  `useragent` varchar(128) DEFAULT NULL,
+  `hostname` varchar(64) DEFAULT NULL,
   `timeStamp` varchar(64) NOT NULL,
   `lastLogin` char(32) DEFAULT NULL,
   PRIMARY KEY (`logid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 # 微博用户信息表
 # `t_weibo_user`

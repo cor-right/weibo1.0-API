@@ -16,8 +16,16 @@ public interface UserMapper {
      * 根据用户名和密码查询用户
      * @return user/null
      */
-    @Select("SELECT * FROM `t_user` WHERE username=#{username} AND passwd=MD5(#{passwd})")
+    @Select("SELECT * FROM `t_user` WHERE `username`=#{username} AND `passwd`=MD5(#{passwd})")
     User selectUserByUsernameAndPasswd(User user);
+
+    /**
+     * 根据token获取用户
+     * @param token
+     * @return
+     */
+    @Select("SELECT * FROM `t_user` WHERE `token`=#{token}")
+    User selectUserByToken(String token);
 
 
     // auto generated

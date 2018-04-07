@@ -53,6 +53,8 @@
 ### 1.2.2 修改密码
 
 - PUT /api/user/passwd
+- desc：
+    - 要求用户登陆之后才能修改密码
 - payload :
 ```json
 {
@@ -94,7 +96,7 @@
     - avgSize：每条微博的平均内存大小（单位：字节）
     - storageSize：当前分配的内存大小（单位：字节）
     - totalIndexSize：索引大小（单位：字节）
-    - status：数据库状态（1.0：正常状态）
+    - status：数据库状态（true：正常状态）
 ```json
 {
   "code" : 0,

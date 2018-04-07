@@ -15,7 +15,7 @@ public class MD5Util {
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
             byte[] bytes = md.digest(s.getBytes("utf-8"));
-            return toHex(bytes);
+            return toHex(bytes).toLowerCase();
         }
         catch (Exception e) {
             throw new RuntimeException(e);
