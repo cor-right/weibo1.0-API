@@ -3,6 +3,7 @@ package org.nefu.softlab.weiboAPI.biz.service.impl;
 import org.nefu.softlab.weiboAPI.biz.service.UserService;
 import org.nefu.softlab.weiboAPI.common.util.MD5Util;
 import org.nefu.softlab.weiboAPI.common.util.TokenUtil;
+import org.nefu.softlab.weiboAPI.common.util.UUIDUtil;
 import org.nefu.softlab.weiboAPI.core.DAO.mapper.LogMapper;
 import org.nefu.softlab.weiboAPI.core.DAO.mapper.UserMapper;
 import org.nefu.softlab.weiboAPI.core.PO.Log;
@@ -34,6 +35,22 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserByUsernameAndPasswd(User user) {
         return userMapper.selectUserByUsernameAndPasswd(user);
+    }
+
+    @Override
+    public User getUserByUsername(String username) {
+        return userMapper.selectUserByUsername(username);
+    }
+
+    @Override
+    public boolean addUserRecord(User user) {
+        user.setUid(UUIDUtil.getRandomID());
+        user.setPasswd(MD5Util.MD5(user.getPasswd()));
+        try {
+            return userMapper.insert(user) != 0 ? true : false;
+        } catch(RuntimeException ex) {
+            return false;
+        }
     }
 
     @Override

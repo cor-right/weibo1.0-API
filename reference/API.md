@@ -5,8 +5,10 @@
 - [1.1 Tips](#11-Tips)
 - [1.2 用户模块](#12-用户模块)
 	- [1.2.1 用户登录](#121-用户登录)
-	- [1.2.2 修改密码](#122-修改密码)
-	- [1.2.3 用户注销](#123-用户注销)
+	- [1.2.2 用户注册](#122-用户注册)
+	- [1.2.3 用户名判重](#123-用户名判重)
+	- [1.2.4 修改密码](#124-修改密码)
+	- [1.2.5 用户注销](#125-用户注销)
 - [1.3 微博统计信息模块](#13-微博统计信息模块)
 	- [1.3.1 统计信息查询](#131-统计信息查询)
 - [1.4 微博用户信息模块](#14-微博用户信息模块)
@@ -28,6 +30,9 @@
 ### 1.2.1 用户登录
 
 - POST /api/user/login
+- desc : 
+    - 用户每次登录都会更新token，但是token不会过期
+    - 新旧密码必须不同且不能为空
 - payload :
 ```json
 {
@@ -37,6 +42,7 @@
 ```
 - return :
     - token：登陆令牌
+    - username：成功登陆后的用户名
     - lastLogin：上次登陆时间的时间戳
 ```json
 {
@@ -50,7 +56,47 @@
 }
 ```
 
-### 1.2.2 修改密码
+### 1.2.2 用户注册
+- POST /api/user/register
+- desc : 
+    - 注册成功之后在后台不会生成token
+- payload : 
+```json
+{
+  "username": "administrator",
+  "passwd": "adminOfSystem"
+}
+```
+- return : 
+```json
+{
+  "code" : 0,
+  "message" : "",
+  "data" : {}
+}
+```
+
+### 1.2.3 用户名判重
+- GET /api/user/register
+- desc : 
+    - data中只包含true/false两种值
+    - true代表用户名已存在，false代表用户名可用
+- payload : 
+```json
+{
+  "username" : "administrator"
+}
+```
+- return :
+```json
+{
+  "code" : 0,
+  "message" : "",
+  "data" : false
+}
+```
+
+### 1.2.4 修改密码
 
 - PUT /api/user/passwd
 - desc：
@@ -71,9 +117,11 @@
 }
 ```
 
-### 1.2.3 用户注销
+### 1.2.5 用户注销
 
 - DELETE /api/user/login
+- desc：
+    - 注销会清空数据库中持久化的用户的token
 - return :
 ```json
 {

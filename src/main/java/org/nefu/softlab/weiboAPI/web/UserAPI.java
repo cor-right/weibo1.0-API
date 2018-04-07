@@ -66,6 +66,36 @@ public class UserAPI {
     }
 
     /**
+     * 用户注册
+     * @param user
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "register", method = RequestMethod.POST)
+    public RESTData postRegister(@RequestBody User user, HttpServletRequest request) {
+        logger.info("POST Post Register : " + JsonUtil.getJsonString(user));
+        // 做一些最基本的格式判断
+        if (user.getUsername() == null || user.getPasswd() == null || user.getUsername().trim().equals("") == true || user.getPasswd().trim().equals("") == true)
+            return new RESTData(1, "用户名或密码不能为空");
+        // 直接注册
+        return userService.addUserRecord(user) == true ? new RESTData()
+                : new RESTData(1, "请检查您的注册信息");
+    }
+
+    /**
+     * 用户名判重
+     * @param username
+     * @return
+     */
+    @RequestMapping(value = "register", method = RequestMethod.GET)
+    public RESTData getRegister(@RequestParam("username") String username) {
+        logger.info("GET Get Register : { username : " +  username + " } ");
+        // 直接查然后返回
+        return userService.getUserByUsername(username) == null ? new RESTData(true)
+                : new RESTData(1, "用户名已存在", false);
+    }
+
+    /**
      * 用户修改密码
      * @param oldpasswd
      * @param newpasswd

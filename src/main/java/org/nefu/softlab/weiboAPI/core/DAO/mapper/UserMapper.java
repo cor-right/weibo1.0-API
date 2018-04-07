@@ -20,6 +20,14 @@ public interface UserMapper {
     User selectUserByUsernameAndPasswd(User user);
 
     /**
+     * 根据用户名获取用户
+     * @param username
+     * @return
+     */
+    @Select("SELECT * FROM `t_user` WHERE `username`=#{username}")
+    User selectUserByUsername(String username);
+
+    /**
      * 根据token获取用户
      * @param token
      * @return
