@@ -3,6 +3,9 @@ package org.nefu.softlab.weiboAPI.core.DAO.mapper.provider;
 import org.apache.ibatis.jdbc.SQL;
 import org.nefu.softlab.weiboAPI.core.PO.Log;
 
+/**
+ * Created by Jiaxu_Zou on 2018-4-7
+ */
 public class LogSqlProvider {
 
     public String insertSelective(Log record) {

@@ -9,7 +9,7 @@ package org.nefu.softlab.weiboAPI.common.constant;
 public interface MongoConfig {
 
     String [] hostlist = {
-            "222.27.227.103",
+            "222.27.227.104",
             "222.27.227.107",
             "222.27.227.110",
             "222.27.227.113"

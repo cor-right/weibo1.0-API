@@ -23,23 +23,23 @@ import java.util.stream.Stream;
 @Repository
 public class StatisticsDao {
 
-//    private static final List<MongoClient> clients;
-//    private static final List<MongoDatabase> databases;
+    private static final List<MongoClient> clients;
+    private static final List<MongoDatabase> databases;
 
     // logger
     private static final Logger logger = LoggerFactory.getLogger(StatisticsDao.class);
 
-//    static {    // 初始化连接
-//        clients = new ArrayList<>();
-//        databases = new ArrayList<>();
-//        Stream.of(MongoConfig.hostlist)
-//                .forEach(host -> {
-//                    MongoClient client = new MongoClient(host, MongoConfig.port);
-//                    clients.add(client);    // 初始化DBMS连接
-//                    databases.add(client.getDatabase(MongoConfig.database));    // 初始化DB连接
-//                });
-//        logger.info(clients.size() + " connections been built successfully ");
-//    }
+    static {    // 初始化连接
+        clients = new ArrayList<>();
+        databases = new ArrayList<>();
+        Stream.of(MongoConfig.hostlist)
+                .forEach(host -> {
+                    MongoClient client = new MongoClient(host, MongoConfig.port);
+                    clients.add(client);    // 初始化DBMS连接
+                    databases.add(client.getDatabase(MongoConfig.database));    // 初始化DB连接
+                });
+        logger.info(clients.size() + " connections been built successfully ");
+    }
 
 
     /**

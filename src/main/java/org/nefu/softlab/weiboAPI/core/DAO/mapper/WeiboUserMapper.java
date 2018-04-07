@@ -6,6 +6,9 @@ import org.nefu.softlab.weiboAPI.core.DAO.mapper.provider.WeiboUserSqlProvider;
 import org.nefu.softlab.weiboAPI.core.PO.WeiboUser;
 import org.springframework.stereotype.Repository;
 
+/**
+ * Created by Jiaxu_Zou on 2018-4-7
+ */
 @Mapper
 @Repository
 public interface WeiboUserMapper {

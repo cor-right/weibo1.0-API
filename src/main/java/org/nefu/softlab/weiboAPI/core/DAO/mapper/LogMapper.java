@@ -6,6 +6,9 @@ import org.apache.ibatis.type.JdbcType;
 import org.nefu.softlab.weiboAPI.core.PO.Log;
 import org.springframework.stereotype.Repository;
 
+/**
+ * Created by Jiaxu_Zou on 2018-4-7
+ */
 @Mapper
 @Repository
 public interface LogMapper {
