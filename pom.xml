@@ -86,6 +86,13 @@
             <version>3.6.3</version>
         </dependency>
 
+        <!-- SSH -->
+        <dependency>
+            <groupId>ch.ethz.ganymed</groupId>
+            <artifactId>ganymed-ssh2</artifactId>
+            <version>262</version>
+        </dependency>
+
     </dependencies>
 
     <build>

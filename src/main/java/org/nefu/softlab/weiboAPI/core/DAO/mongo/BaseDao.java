@@ -32,5 +32,9 @@ public abstract class BaseDao {
         return returnData;
     }
 
+    /**
+     * 获取磁盘占用信息
+     */
+
 
 }

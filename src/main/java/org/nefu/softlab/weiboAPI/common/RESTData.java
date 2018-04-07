@@ -1,5 +1,8 @@
 package org.nefu.softlab.weiboAPI.common;
 
+import org.junit.jupiter.api.Test;
+import org.nefu.softlab.weiboAPI.common.constant.SSHConfig;
+
 /**
  * Created by Jiaxu_Zou on 2018-4-6
  *
@@ -61,6 +64,8 @@ public class RESTData {
     public void setData(Object data) {
         this.data = data;
     }
+
+
 
 
 }

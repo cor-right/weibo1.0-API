@@ -1,5 +1,6 @@
 package org.nefu.softlab.weiboAPI.biz.service.impl;
 
+import com.mongodb.ServerAddress;
 import org.nefu.softlab.weiboAPI.biz.service.StatisticsService;
 import org.nefu.softlab.weiboAPI.core.DAO.mongo.StatisticsDao;
 import org.slf4j.Logger;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by Jiaxu_Zou on 2018-4-7
@@ -62,5 +64,23 @@ public class StatisticsServiceImpl implements StatisticsService{
         // 计算平均值并返回
         returnMap.put("avgSize", ((double)returnMap.get("avgSize") / dataList.size()));
         return returnMap;
+    }
+
+    @Override
+    public Map<String, Object> getSpecificServerStatistics(String socket) {
+        // 调用方法getSplitedStatistics获取每台机器的信息
+        List<Map<String, Object>> dataList = getSplitedStatistics();
+        for (Map<String, Object> stringObjectMap : dataList) {  // 1.7
+            String socketAddr = ((ServerAddress)stringObjectMap.get("host")).getSocketAddress().toString()
+                    .replace(".", "-").replace(":", "-").replace("/", "");
+            if (socketAddr.equals(socket) == true)  // 找到了
+                return stringObjectMap;
+        }
+        return null;    // 没找到
+//        return dataList.stream()    // 1.8，操作不够清晰故注释
+//                .filter(map -> {
+//                    return ((Map<String, Object>)map.get("host")).get("socketAddress").toString().equals(socket) == true;  // 利用套接字进行过滤，找出相同套接字的map
+//                }).collect(Collectors.toList())
+//        .get(0);    // 返回
     }
 }

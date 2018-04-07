@@ -24,6 +24,13 @@ public interface StatisticsService {
      */
     Map<String, Object> getTotalStatistics();
 
+    /**
+     * 获取指定mongo的数据量
+     * @param socket
+     * @return
+     */
+    Map<String, Object> getSpecificServerStatistics(String socket);
+
 
 
 }

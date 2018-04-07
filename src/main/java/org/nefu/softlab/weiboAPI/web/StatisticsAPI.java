@@ -74,4 +74,18 @@ public class StatisticsAPI {
                 : new RESTData(1, "获取信息失败，请稍后重试");
     }
 
+    @RequestMapping(value = "{socket}", method = RequestMethod.GET)
+    public RESTData getSpecificServerStatistics(@PathVariable("socket") String socket, HttpServletRequest request) {
+        // 用户验证
+        User user = userService.getUserByToken(TokenUtil.getToken(request));
+        if (user == null)
+            return new RESTData(1, "请检查当前登陆状态");
+        logger.info("GET Get Specific Server Statistics : " + JsonUtil.getJsonString(user) + ", { socket : " + socket + "}");
+        // 执行查询
+        Map<String, Object> returnData = statisticsService.getSpecificServerStatistics(socket);
+        return returnData != null ? new RESTData(returnData)
+                : new RESTData(1, "请检查输入的套接字是否正确");
+    }
+
+
 }

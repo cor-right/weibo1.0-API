@@ -1,8 +1,10 @@
 package org.nefu.softlab.weiboAPI.web;
 
 import com.mongodb.util.JSON;
+import org.junit.jupiter.api.Test;
 import org.nefu.softlab.weiboAPI.biz.service.UserService;
 import org.nefu.softlab.weiboAPI.common.RESTData;
+import org.nefu.softlab.weiboAPI.common.constant.SSHConfig;
 import org.nefu.softlab.weiboAPI.common.util.JsonUtil;
 import org.nefu.softlab.weiboAPI.common.util.LogUtil;
 import org.nefu.softlab.weiboAPI.common.util.MD5Util;
@@ -134,7 +136,6 @@ public class UserAPI {
         return userService.deleteLogin(user) == true ? new RESTData()
                 : new RESTData(1, "注销失败，请稍后重试");
     }
-
 
 
 }
