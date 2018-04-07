@@ -4,9 +4,23 @@ import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
 import org.nefu.softlab.weiboAPI.core.DAO.mapper.provider.UserSqlProvider;
 import org.nefu.softlab.weiboAPI.core.PO.User;
+import org.springframework.stereotype.Repository;
 
+@Mapper
+@Repository
 public interface UserMapper {
 
+    // write
+
+    /**
+     * 根据用户名和密码查询用户
+     * @return user/null
+     */
+    @Select("SELECT * FROM `t_user` WHERE username=#{username} AND passwd=MD5(#{passwd})")
+    User selectUserByUsernameAndPasswd(User user);
+
+
+    // auto generated
     @Delete({
         "delete from t_user",
         "where uid = #{uid,jdbcType=CHAR}"

@@ -106,7 +106,7 @@
       "avgSize" : 2108,
       "storageSize" :  337709246048.0,
       "totalIndexSize" : 7301666736.0,
-      "status" : 1.0
+      "status" : true
     },
     {
       "count" : 158267961,
@@ -114,7 +114,7 @@
       "avgSize" : 2108,
       "storageSize" :  337709246048.0,
       "totalIndexSize" : 7301666736.0,
-      "status" : 1.0
+      "status" : true
     },
     {
       "count" : 158267961,
@@ -122,7 +122,7 @@
       "avgSize" : 2108,
       "storageSize" :  337709246048.0,
       "totalIndexSize" : 7301666736.0,
-      "status" : 1.0
+      "status" : true
     },
    {
       "count" : 158267961,
@@ -130,7 +130,7 @@
       "avgSize" : 2108,
       "storageSize" :  337709246048.0,
       "totalIndexSize" : 7301666736.0,
-      "status" : 1.0
+      "status" : true
     }
   ]
 }

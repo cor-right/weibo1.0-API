@@ -4,7 +4,10 @@ import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
 import org.nefu.softlab.weiboAPI.core.DAO.mapper.provider.LogSqlProvider;
 import org.nefu.softlab.weiboAPI.core.PO.Log;
+import org.springframework.stereotype.Repository;
 
+@Mapper
+@Repository
 public interface LogMapper {
     @Delete({
         "delete from t_user_log",

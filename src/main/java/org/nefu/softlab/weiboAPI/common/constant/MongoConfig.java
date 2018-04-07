@@ -1,12 +1,5 @@
 package org.nefu.softlab.weiboAPI.common.constant;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Value;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 /**
  * Created by Jiaxu_Zou on 2018-4-6
  *
@@ -28,6 +21,5 @@ public interface MongoConfig {
     int port = 27017;
     String database = "Sina";
     String collection = "weibo";
-
 
 }

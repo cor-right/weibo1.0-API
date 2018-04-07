@@ -4,6 +4,7 @@ import org.nefu.softlab.weiboAPI.core.PO.Log;
 import org.nefu.softlab.weiboAPI.core.PO.User;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Enumeration;
 
 /**
  * Created by Jiaxu_Zou on 2018-4-6
@@ -25,9 +26,9 @@ public class LogUtil {
         // 装载登录的统计信息
         int count = lastLog == null ? 1 : lastLog.getCount() + 1;
         log.setCount(count);    // 登录次数
-        log.setLastlogin(lastLog.getLogid());   // 上条登录记录ID
+        log.setLastlogin(lastLog == null ? null : lastLog.getLogid());   // 上条登录记录ID
         // 装载本次登陆的信息
-        log.setUseragent(request.getHeader("User-Agent"));  // 浏览器
+        log.setUseragent(request.getHeader("user-agent"));  // 浏览器
         log.setIp(request.getRemoteAddr()); // IP
         log.setHostname(request.getRemoteHost());   // 客户端主机名
         return log;

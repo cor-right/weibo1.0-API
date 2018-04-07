@@ -79,6 +79,13 @@
             <version>RELEASE</version>
         </dependency>
 
+        <!-- MONGO-->
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongo-java-driver</artifactId>
+            <version>3.6.3</version>
+        </dependency>
+
     </dependencies>
 
     <build>

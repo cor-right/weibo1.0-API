@@ -4,7 +4,10 @@ import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
 import org.nefu.softlab.weiboAPI.core.DAO.mapper.provider.WeiboUserSqlProvider;
 import org.nefu.softlab.weiboAPI.core.PO.WeiboUser;
+import org.springframework.stereotype.Repository;
 
+@Mapper
+@Repository
 public interface WeiboUserMapper {
     @Delete({
         "delete from t_weibo_user",
