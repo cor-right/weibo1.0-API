@@ -33,17 +33,6 @@ public class StatisticsServiceImpl implements StatisticsService{
         return statisticsDao.getSplitedStatistics();
     }
 
-    /**
-     * - serverCount : 数据库服务器的数目
-         - hosts : 各个数据库服务器的host信息
-         - count : 微博记录数
-         - size : 微博记录所使用的总内存大小（单位：字节）
-         - avgSize : 每条微博的平均内存大小（单位：字节）
-         - storageSize : 当前分配的总内存大小（单位：字节）
-         - totalIndexSize : 索引总大小（单位：字节）
-         - okCount : 数据库状态正常的数据库服务器数目
-     * @return
-     */
     @Override
     public Map<String, Object> getTotalStatistics() {
         List<Map<String, Object>> dataList = getSplitedStatistics();

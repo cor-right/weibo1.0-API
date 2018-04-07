@@ -15,12 +15,15 @@
 
 ## 技术应用
 
-- 后端使用框架Spring，SpringMVC,MyBatis进行开发
-- 使用SpringBoot协助开发
-- 使用Maven进行包管理
+- 后端使用框架Spring进行事务管理和层次间的解耦
+- 使用SpringMVC作为控制层框架
+- 使用MyBatis作为持久层框架
+- 使用Quartz进行定时任务的调度
 
 ## 开发工具
 
+- 使用SpringBoot协助开发
+- 使用Maven进行包管理
 - 使用GIT进行版本控制
 - 使用IntelJ IDEA作为后台开发使用的IDE
 - 使用POSTMAN进行后端的模拟请求
