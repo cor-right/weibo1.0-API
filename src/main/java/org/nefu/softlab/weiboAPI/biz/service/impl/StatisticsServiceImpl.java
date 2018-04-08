@@ -3,13 +3,13 @@ package org.nefu.softlab.weiboAPI.biz.service.impl;
 import com.mongodb.ServerAddress;
 import org.nefu.softlab.weiboAPI.biz.service.StatisticsService;
 import org.nefu.softlab.weiboAPI.core.DAO.mongo.StatisticsDao;
+import org.nefu.softlab.weiboAPI.core.DAO.shell.SSHDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Created by Jiaxu_Zou on 2018-4-7
@@ -22,12 +22,16 @@ public class StatisticsServiceImpl implements StatisticsService{
     // mongo dao
     private final StatisticsDao statisticsDao;
 
+    // shell dao
+    private final SSHDao sshDao;
+
     // logger
     private static final Logger logger = LoggerFactory.getLogger(StatisticsServiceImpl.class);
 
     @Autowired
-    public StatisticsServiceImpl(StatisticsDao statisticsDao) {
+    public StatisticsServiceImpl(StatisticsDao statisticsDao, SSHDao sshDao) {
         this.statisticsDao = statisticsDao;
+        this.sshDao = sshDao;
     }
 
     @Override
@@ -82,5 +86,15 @@ public class StatisticsServiceImpl implements StatisticsService{
 //                    return ((Map<String, Object>)map.get("host")).get("socketAddress").toString().equals(socket) == true;  // 利用套接字进行过滤，找出相同套接字的map
 //                }).collect(Collectors.toList())
 //        .get(0);    // 返回
+    }
+
+    @Override
+    public List<Map<String, Object>> getMemoryStatus() {
+        return sshDao.getServerMemStatus();
+    }
+
+    @Override
+    public List<Map<String, Object>> getDiskSpaceStatus() {
+        return sshDao.getServerDiskStatus();
     }
 }

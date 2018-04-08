@@ -31,6 +31,19 @@ public interface StatisticsService {
      */
     Map<String, Object> getSpecificServerStatistics(String socket);
 
+    /**
+     * 获取磁盘占用情况
+     * @return list of map
+     */
+    List<Map<String, Object>> getDiskSpaceStatus();
+
+    /**
+     * 获取内存占用情况
+     * @return
+     */
+    List<Map<String, Object>> getMemoryStatus();
+
+
 
 
 }
