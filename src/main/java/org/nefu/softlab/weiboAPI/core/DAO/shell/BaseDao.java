@@ -13,7 +13,7 @@ import java.io.InputStreamReader;
 /**
  * Created by Jiaxu_Zou on 2018-4-7
  *
- *
+ * 对操作系统的信息进行获取的Dao的BaseDao
  */
 public abstract class BaseDao {
 

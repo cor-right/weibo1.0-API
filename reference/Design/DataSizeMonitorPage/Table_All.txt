@@ -1,0 +1,34 @@
+页面左上角
+集群总数据的表格设计
+
+表格大小
+6 * 2
+
+表格项目
+
+DB Server Count                 4
+
+Running Server Count        4
+
+Record Count                     635319848
+
+Storage Size                       1247.624856 GB
+
+Index Size                          27.2648509 GB
+
+Average Record Size           2108 B
+
+
+表格项目
+
+数据库数目                   4
+
+运行中数据库数目        4
+
+微博记录总数               635319848
+
+记录存储容量               1247.624856 GB
+
+记录索引容量               27.2648509 GB
+
+记录平均容量               2108 B
