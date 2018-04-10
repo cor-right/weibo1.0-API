@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 import org.nefu.softlab.weiboAPI.common.config.RedisConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.stereotype.Repository;
 import redis.clients.jedis.Jedis;
 

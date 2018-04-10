@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 /**
  * Created by Jiaxu_Zou on 2018-4-10
@@ -44,7 +45,7 @@ public class SpiderAPI {
      * @param request
      * @return
      */
-    @RequestMapping(value = "spider", method = RequestMethod.GET)
+    @RequestMapping(value = "ippool", method = RequestMethod.GET)
     public RESTData getIppoolData(HttpServletRequest request) {
         // 用户验证
         User user = userService.getUserByToken(TokenUtil.getToken(request));
@@ -52,7 +53,9 @@ public class SpiderAPI {
             return new RESTData(1, "请检查当前登陆状态");
         logger.info("GET Get Ippool Data : " + JsonUtil.getJsonString(user));
         // 执行查询
-
+        Map returnMap = spiderService.getIppoolData();
+        return returnMap == null ? new RESTData(1, "获取IP相关信息失败，请联系系统管理员")
+                : new RESTData(returnMap);
     }
 
 

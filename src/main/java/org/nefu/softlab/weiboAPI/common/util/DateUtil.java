@@ -1,7 +1,10 @@
 package org.nefu.softlab.weiboAPI.common.util;
 
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -14,7 +17,11 @@ import java.util.Date;
  */
 public class DateUtil {
 
+    //  formatter
     private static final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+    // logger
+    private static final Logger logger = LoggerFactory.getLogger(DateUtil.class);
 
     /**
      * 获取当前时间的时间戳
@@ -32,44 +39,33 @@ public class DateUtil {
     }
 
     /**
-     * 用于爬虫中对课程的周次统一格式化
-     * 需要处理的格式极限情况是：1,2,9-11 ->1,2,9,10,11
+     * 将制定格式的时间戳解析成Date对象
+     * @param timestamp
+     * @return
      */
-    public static String formatWeeks(String oriString) {
-        if (oriString.contains("-")) {
-            StringBuilder builder = new StringBuilder("");
-            if (oriString.contains(",")) {  // 极限情况
-                String [] datas = oriString.trim().split(",");
-                System.out.println(datas.length);
-                Arrays.stream(datas).forEach(n -> {
-                    if (n.contains("-")) {
-                        String [] tempdatas = n.trim().split("-");
-                        int from = Integer.parseInt(datas[0]);
-                        int to = Integer.parseInt(datas[1]);
-                        for (int i = from; i <= to; i++) {
-                            builder.append(i);
-                            builder.append(",");
-                        }
-                    } else {
-                        builder.append(n);
-                        builder.append(",");
-                    }
-                });
-            } else {
-                String [] datas = oriString.trim().split("-");
-                int from = Integer.parseInt(datas[0]);
-                int to = Integer.parseInt(datas[1]);
-                for (int i = from; i <= to; i++) {
-                    builder.append(i);
-                    builder.append(",");
-                }
-            }
-            String returnStr = builder.toString();
-            return returnStr.substring(0, returnStr.length() - 1);
+    public static Date parseTimestamp(String timestamp) {
+        try {
+            return formatter.parse(timestamp);
+        } catch (ParseException e) {
+            logger.error("Parse timestamp string : " + timestamp + " failed .");
+            return null;
         }
-        else
-            return oriString;
     }
+
+
+    /**
+     * 获取两个时间戳之间的时间差，单位是毫秒
+     * @param oldtimestamp
+     * @param newtimestamp
+     * @return
+     */
+    public static long getTimeInterval(String oldtimestamp, String newtimestamp) {
+        Date oldtime = parseTimestamp(oldtimestamp);
+        Date newtime = parseTimestamp(newtimestamp);
+        return newtime.getTime() - oldtime.getTime();
+    }
+
+
 
     @Test
     public void test() {
