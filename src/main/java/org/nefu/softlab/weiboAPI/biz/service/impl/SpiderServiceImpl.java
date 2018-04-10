@@ -1,24 +1,31 @@
 package org.nefu.softlab.weiboAPI.biz.service.impl;
 
 import org.nefu.softlab.weiboAPI.biz.service.SpiderService;
+import org.nefu.softlab.weiboAPI.biz.trigger.SpiderTrigger;
 import org.nefu.softlab.weiboAPI.common.util.DateUtil;
 import org.nefu.softlab.weiboAPI.core.DAO.redis.IPPoolDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Service
+@Transactional
 public class SpiderServiceImpl implements SpiderService{
 
-    // dap
+    // dao
     private final IPPoolDao ippoolDao;
 
+    // trigger
+    private final SpiderTrigger spiderTrigger;
+
     @Autowired
-    public SpiderServiceImpl(IPPoolDao ippoolDao) {
+    public SpiderServiceImpl(IPPoolDao ippoolDao, SpiderTrigger spiderTrigger) {
         this.ippoolDao = ippoolDao;
+        this.spiderTrigger = spiderTrigger;
     }
 
     @Override

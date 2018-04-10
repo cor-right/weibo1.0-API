@@ -395,6 +395,28 @@
 ## 1.4 数据增量模块
 
 ### 1.4.1 爬虫速率
+- GET /api/spider/status
+- desc :
+    - 获取爬虫速率
+- return :
+    - status : 爬虫启用状态，true为启用中
+    - nodecount : 爬虫节点数，默认12
+    - curRate : 当前爬虫速率，单位(条/秒)
+    - curAvgRate : 当前每个节点上爬虫的平均速率，单位(条/秒)
+    - curRate : 五分钟内爬虫的平均速率，单位(条/秒)
+```json
+{
+    "code" : 0,
+    "message" : "",
+    "data" : {
+        "status" : true,
+        "nodecount" : 12,
+        "curRate" : 348,
+        "curAvgRate" : 24,
+        "rateInFive" : 367
+    }
+}
+```
 
 ### 1.4.2 IP池
 - GET /api/spider/ippool
