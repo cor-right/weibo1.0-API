@@ -165,6 +165,7 @@
     "data": [
         {
             "size": 333713266496,
+            "diskAll": 979942150144,
             "storageSize": 337709246048,
             "count": 158267961,
             "avgSize": 2108,
@@ -173,11 +174,13 @@
                 "port": 27017,
                 "socketAddress": "222.27.227.104:27017"
             },
+            "diskLeft": 1429630976,
             "totalIndexSize": 7301666736,
             "status": true
         },
         {
             "size": 334250032080,
+            "diskAll": 979942150144,
             "storageSize": 337709246048,
             "count": 158519400,
             "avgSize": 2108,
@@ -186,11 +189,13 @@
                 "port": 27017,
                 "socketAddress": "222.27.227.107:27017"
             },
+            "diskLeft": 244161863680,
             "totalIndexSize": 7289697072,
             "status": true
         },
         {
             "size": 335223868352,
+            "diskAll": 979942150144,
             "storageSize": 339855672912,
             "count": 158975696,
             "avgSize": 2108,
@@ -199,11 +204,13 @@
                 "port": 27017,
                 "socketAddress": "222.27.227.110:27017"
             },
+            "diskLeft": 267250081792,
             "totalIndexSize": 7322597296,
             "status": true
         },
         {
             "size": 336431580960,
+            "diskAll": 979942150144,
             "storageSize": 339855672912,
             "count": 159556791,
             "avgSize": 2108,
@@ -212,6 +219,7 @@
                 "port": 27017,
                 "socketAddress": "222.27.227.113:27017"
             },
+            "diskLeft": 263233064960,
             "totalIndexSize": 7361449648,
             "status": true
         }
@@ -400,7 +408,7 @@
     - 获取爬虫速率
 - return :
     - status : 爬虫启用状态，true为启用中
-    - nodecount : 爬虫节点数，默认12
+    - nodeC ount : 爬虫节点数，默认12
     - curRate : 当前爬虫速率，单位(条/秒)
     - curAvgRate : 当前每个节点上爬虫的平均速率，单位(条/秒)
     - curRate : 五分钟内爬虫的平均速率，单位(条/秒)
@@ -410,7 +418,7 @@
     "message" : "",
     "data" : {
         "status" : true,
-        "nodecount" : 12,
+        "nodeCount" : 12,
         "curRate" : 348,
         "curAvgRate" : 24,
         "rateInFive" : 367

@@ -36,7 +36,21 @@ public class StatisticsServiceImpl implements StatisticsService{
 
     @Override
     public List<Map<String, Object>> getSplitedStatistics() {
-        return statisticsDao.getSplitedStatistics();
+        List<Map<String, Object>> returnList = statisticsDao.getSplitedStatistics();
+        List<Map<String, Object>> serverDiskStatus = sshDao.getServerDiskStatus();
+        // 排序
+        returnList.sort(Comparator.comparingInt(a -> ((ServerAddress)a.get("host")).getHost().hashCode()));
+        serverDiskStatus.sort(Comparator.comparing(a -> a.get("host").hashCode()));
+        for (int i = 0; i < returnList.size(); i++) {
+            Map<String, Object> currentStatisticsMap = returnList.get(i);
+            Map<String, Object> currentDiskStatus = serverDiskStatus.get(i);
+            System.out.println(currentDiskStatus.get("host"));
+            System.out.println(((ServerAddress)currentStatisticsMap.get("host")).getHost());
+            long left = (long)currentDiskStatus.get("all") - (long)currentDiskStatus.get("used");
+            currentStatisticsMap.put("diskLeft", left);
+            currentStatisticsMap.put("diskAll", currentDiskStatus.get("all"));
+        }
+        return returnList;
     }
 
     @Override
@@ -81,11 +95,6 @@ public class StatisticsServiceImpl implements StatisticsService{
                 return stringObjectMap;
         }
         return null;    // 没找到
-//        return dataList.stream()    // 1.8，操作不够清晰故注释
-//                .filter(map -> {
-//                    return ((Map<String, Object>)map.get("host")).get("socketAddress").toString().equals(socket) == true;  // 利用套接字进行过滤，找出相同套接字的map
-//                }).collect(Collectors.toList())
-//        .get(0);    // 返回
     }
 
     @Override
