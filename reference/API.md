@@ -146,7 +146,6 @@
 ## 1.3 数据量统计模块
 
 ### 1.3.1 多主机分开查询
-
 - GET /api/statistics/splited
 - desc :
     - 这里统计的是每台mongoDB数据库服务器的数据量
@@ -158,6 +157,8 @@
     - storageSize：当前分配的内存大小（单位：字节）
     - totalIndexSize：索引大小（单位：字节）
     - status：数据库状态（true：正常状态）
+    - diskAll : 磁盘总容量
+    - diskLeft : 磁盘剩余可用容量
 ```json
 {
     "code": 0,

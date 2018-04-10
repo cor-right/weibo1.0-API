@@ -55,7 +55,7 @@ public class StatisticsServiceImpl implements StatisticsService{
 
     @Override
     public Map<String, Object> getTotalStatistics() {
-        List<Map<String, Object>> dataList = getSplitedStatistics();
+        List<Map<String, Object>> dataList = statisticsDao.getSplitedStatistics();
         Map<String, Object> returnMap = new HashMap<>();
         if (dataList == null || dataList.size() == 0)
             return null;
