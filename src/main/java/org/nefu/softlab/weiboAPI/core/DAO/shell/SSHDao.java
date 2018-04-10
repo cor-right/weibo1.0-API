@@ -2,7 +2,7 @@ package org.nefu.softlab.weiboAPI.core.DAO.shell;
 
 
 import ch.ethz.ssh2.Connection;
-import org.nefu.softlab.weiboAPI.common.constant.SSHConfig;
+import org.nefu.softlab.weiboAPI.common.config.SSHConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;

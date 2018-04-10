@@ -93,6 +93,12 @@
             <version>262</version>
         </dependency>
 
+        <!-- Redis客户端 -->
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>2.9.0</version>
+        </dependency>
         <!-- springboot整合redis -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

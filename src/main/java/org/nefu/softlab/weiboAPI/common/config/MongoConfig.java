@@ -1,4 +1,4 @@
-package org.nefu.softlab.weiboAPI.common.constant;
+package org.nefu.softlab.weiboAPI.common.config;
 
 /**
  * Created by Jiaxu_Zou on 2018-4-6

@@ -1,15 +1,14 @@
 package org.nefu.softlab.weiboAPI.core.DAO.redis;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.ListOperations;
-import org.springframework.data.redis.core.RedisOperations;
-import org.springframework.data.redis.core.RedisTemplate;
+import org.nefu.softlab.weiboAPI.common.config.RedisConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.stereotype.Repository;
+import redis.clients.jedis.Jedis;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Jiaxu_Zou on 2018-4-9
@@ -17,26 +16,54 @@ import java.util.Map;
  * 该DAO的功能是对redis中IP池相关的信息进行获取
  */
 @Repository
-public class IPPoolDao {
+public class IPPoolDao extends BaseDao{
 
-    private final RedisTemplate redisTemplate;
+    //  jedis
+    private final Jedis jedis;
 
+    // logger
+    private static final Logger logger = LoggerFactory.getLogger(IPPoolDao.class);
 
-    @Autowired
-    public IPPoolDao(RedisTemplate redisTemplate) {
-        this.redisTemplate = redisTemplate;
-        System.out.println(redisTemplate.opsForList().range("weibo:ippool", 0, 8));
+    // strings
+    private final String namespace;
+    private final String ippookey;
+    private final String refreshtimekey;
+
+    public IPPoolDao() {
+        this.jedis = new Jedis(RedisConfig.host, RedisConfig.port, RedisConfig.db);
+        jedis.connect();
+        this.namespace = RedisConfig.namespace;
+        this.ippookey = RedisConfig.namespace + ":ippool";
+        this.refreshtimekey = RedisConfig.namespace + ":refreshTime";
     }
-
 
     /**
-     * 将IP池中当前的IP以列表的形式全部返回
-     * 每个IP以字符串的形式保存，每个字符串的格式是一个socket
+     * 获取IP列表
      * @return
      */
-    public List<String> getIPPoolList() {
-        return redisTemplate.opsForList().range("weibo:ippool", 0, 8);
+    public List<String> getIPList() {
+        return getList(this.jedis, this.ippookey);
     }
+
+    /**
+     * 获取IP池的更新时间的表
+     * .get(0)获取的是最近一次更新的时间
+     * .get(1)获取的是大上次更新的时间
+     * @return
+     */
+    public List<String> getPoolRefreshTime() {
+        return getList(this.jedis, this.refreshtimekey);
+    }
+
+
+    @Test
+    public void test() {
+        getPoolRefreshTime().stream()
+                .forEach(n -> {
+                    System.out.println(n);
+                });
+    }
+
 
 
 

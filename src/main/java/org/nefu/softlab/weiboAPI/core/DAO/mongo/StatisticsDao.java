@@ -2,7 +2,7 @@ package org.nefu.softlab.weiboAPI.core.DAO.mongo;
 
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoDatabase;
-import org.nefu.softlab.weiboAPI.common.constant.MongoConfig;
+import org.nefu.softlab.weiboAPI.common.config.MongoConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;

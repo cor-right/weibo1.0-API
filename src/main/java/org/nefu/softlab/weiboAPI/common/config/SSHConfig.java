@@ -1,4 +1,4 @@
-package org.nefu.softlab.weiboAPI.common.constant;
+package org.nefu.softlab.weiboAPI.common.config;
 
 import com.beust.jcommander.internal.Maps;
 

@@ -1,10 +1,7 @@
 package org.nefu.softlab.weiboAPI.web;
 
-import com.mongodb.util.JSON;
-import org.junit.jupiter.api.Test;
 import org.nefu.softlab.weiboAPI.biz.service.UserService;
 import org.nefu.softlab.weiboAPI.common.RESTData;
-import org.nefu.softlab.weiboAPI.common.constant.SSHConfig;
 import org.nefu.softlab.weiboAPI.common.util.JsonUtil;
 import org.nefu.softlab.weiboAPI.common.util.LogUtil;
 import org.nefu.softlab.weiboAPI.common.util.MD5Util;
@@ -15,7 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import sun.security.provider.MD5;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
