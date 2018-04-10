@@ -1,7 +1,6 @@
 package org.nefu.softlab.weiboAPI.biz.service.impl;
 
 import org.nefu.softlab.weiboAPI.biz.service.SpiderService;
-import org.nefu.softlab.weiboAPI.biz.trigger.SpiderTrigger;
 import org.nefu.softlab.weiboAPI.common.util.DateUtil;
 import org.nefu.softlab.weiboAPI.core.DAO.redis.IPPoolDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +18,15 @@ public class SpiderServiceImpl implements SpiderService{
     // dao
     private final IPPoolDao ippoolDao;
 
-    // trigger
-    private final SpiderTrigger spiderTrigger;
+    // data
+    private long recordCountFiveSec = 0;        // 五秒前的数据库的记录数
+    private long recordCountOneSec = 0;        // 一秒后的数据库的记录数
+
+    // logger
 
     @Autowired
-    public SpiderServiceImpl(IPPoolDao ippoolDao, SpiderTrigger spiderTrigger) {
+    public SpiderServiceImpl(IPPoolDao ippoolDao) {
         this.ippoolDao = ippoolDao;
-        this.spiderTrigger = spiderTrigger;
     }
 
     @Override
@@ -43,5 +44,23 @@ public class SpiderServiceImpl implements SpiderService{
         ippoolData.put("refreshInterval", interval);
         ippoolData.put("pool", poollist);
         return ippoolData;
+    }
+
+    // getter and setter
+
+    public long getRecordCountFiveSec() {
+        return recordCountFiveSec;
+    }
+
+    public void setRecordCountFiveSec(long recordCountFiveSec) {
+        this.recordCountFiveSec = recordCountFiveSec;
+    }
+
+    public long getRecordCountOneSec() {
+        return recordCountOneSec;
+    }
+
+    public void setRecordCountOneSec(long recordCountOneSec) {
+        this.recordCountOneSec = recordCountOneSec;
     }
 }
