@@ -403,6 +403,7 @@
     - IP池基本五分钟一次更新，默认大小为8，但是可变
     - IP池在后端是对Redis进行访问得到的，所以离开了集群环境无法获取IP池
 - return : 
+    - status : IP池启用状态
     - lastRefresh : IP池的上次更新时间
     - refreshInterval : IP池的上一次更新距离大上次的更新的时间间隔
     - pool : IP池的内容，格式是socket
@@ -411,6 +412,7 @@
     "code" : 0,
     "message" : "",
     "data" : {
+        "status" : true,
         "lastRefresh" : "2018-4-9 18:00:01",
         "refreshInterval" : 5,
         "pool" : [
