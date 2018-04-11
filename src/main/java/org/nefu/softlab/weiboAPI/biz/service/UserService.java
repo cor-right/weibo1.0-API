@@ -1,7 +1,7 @@
 package org.nefu.softlab.weiboAPI.biz.service;
 
-import org.nefu.softlab.weiboAPI.core.PO.Log;
-import org.nefu.softlab.weiboAPI.core.PO.User;
+import org.nefu.softlab.weiboAPI.core.po.Log;
+import org.nefu.softlab.weiboAPI.core.po.User;
 
 import java.util.Map;
 

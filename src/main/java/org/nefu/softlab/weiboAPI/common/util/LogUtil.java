@@ -1,10 +1,8 @@
 package org.nefu.softlab.weiboAPI.common.util;
 
-import org.nefu.softlab.weiboAPI.core.PO.Log;
-import org.nefu.softlab.weiboAPI.core.PO.User;
+import org.nefu.softlab.weiboAPI.core.po.Log;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Enumeration;
 
 /**
  * Created by Jiaxu_Zou on 2018-4-6

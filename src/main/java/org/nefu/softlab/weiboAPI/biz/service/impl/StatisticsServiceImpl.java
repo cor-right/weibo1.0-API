@@ -2,8 +2,8 @@ package org.nefu.softlab.weiboAPI.biz.service.impl;
 
 import com.mongodb.ServerAddress;
 import org.nefu.softlab.weiboAPI.biz.service.StatisticsService;
-import org.nefu.softlab.weiboAPI.core.DAO.mongo.StatisticsDao;
-import org.nefu.softlab.weiboAPI.core.DAO.shell.SSHDao;
+import org.nefu.softlab.weiboAPI.core.dao.mongo.StatisticsDao;
+import org.nefu.softlab.weiboAPI.core.dao.shell.SSHDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

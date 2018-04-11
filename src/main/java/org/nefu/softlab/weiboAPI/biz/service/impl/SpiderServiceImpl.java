@@ -2,7 +2,7 @@ package org.nefu.softlab.weiboAPI.biz.service.impl;
 
 import org.nefu.softlab.weiboAPI.biz.service.SpiderService;
 import org.nefu.softlab.weiboAPI.common.util.DateUtil;
-import org.nefu.softlab.weiboAPI.core.DAO.redis.IPPoolDao;
+import org.nefu.softlab.weiboAPI.core.dao.redis.IPPoolDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
