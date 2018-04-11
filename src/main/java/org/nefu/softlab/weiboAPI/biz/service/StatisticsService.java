@@ -37,11 +37,7 @@ public interface StatisticsService {
      */
     List<Map<String, Object>> getDiskSpaceStatus();
 
-    /**
-     * 获取内存占用情况
-     * @return
-     */
-    List<Map<String, Object>> getMemoryStatus();
+
 
 
 

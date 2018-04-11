@@ -5,7 +5,7 @@ import org.nefu.softlab.weiboAPI.common.util.DateUtil;
 import org.nefu.softlab.weiboAPI.common.util.PropertiesUtil;
 import org.nefu.softlab.weiboAPI.core.dao.mapper.DailyRecordMapper;
 import org.nefu.softlab.weiboAPI.core.dao.redis.IPPoolDao;
-import org.nefu.softlab.weiboAPI.core.po.DailyRecord;
+import org.nefu.softlab.weiboAPI.core.dao.shell.SSHDao;
 import org.nefu.softlab.weiboAPI.core.pojo.SpiderDataPojo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +25,7 @@ public class SpiderServiceImpl implements SpiderService{
 
     // dao
     private final IPPoolDao ippoolDao;
+    private final SSHDao sshDao;
 
     // static
     private static final String SPIDER_PROPERTY_FILENAME = "spider.properties";
@@ -33,9 +34,10 @@ public class SpiderServiceImpl implements SpiderService{
     private final SpiderDataPojo spiderDataPojo;
 
     @Autowired
-    public SpiderServiceImpl(DailyRecordMapper dailyRecordMapper, IPPoolDao ippoolDao, SpiderDataPojo spiderDataPojo) {
+    public SpiderServiceImpl(DailyRecordMapper dailyRecordMapper, IPPoolDao ippoolDao, SSHDao sshDao, SpiderDataPojo spiderDataPojo) {
         this.dailyRecordMapper = dailyRecordMapper;
         this.ippoolDao = ippoolDao;
+        this.sshDao = sshDao;
         this.spiderDataPojo = spiderDataPojo;
     }
 
@@ -86,6 +88,11 @@ public class SpiderServiceImpl implements SpiderService{
                     returnList.add(data);
                 });
         return returnList;
+    }
+
+    @Override
+    public List<Map<String, Object>> getMemoryStatus() {
+        return sshDao.getServerMemStatus();
     }
 
 }

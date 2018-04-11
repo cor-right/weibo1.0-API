@@ -95,6 +95,24 @@ public class SpiderAPI {
                 : new RESTData(returnMap);
     }
 
+    /**
+     * 查询数据库服务器内存占用率
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "mem", method = RequestMethod.GET)
+    public RESTData getMemoryStatus(HttpServletRequest request) {
+        // 用户验证
+        User user = userService.getUserByToken(TokenUtil.getToken(request));
+        if (user == null)
+            return new RESTData(1, "请检查当前登陆状态");
+        logger.info("GET Get Memory Status : " + JsonUtil.getJsonString(user));
+        // 执行查询
+        List returnData = spiderService.getMemoryStatus();
+        return returnData != null ? new RESTData(returnData)
+                : new RESTData(1, "当前系统繁忙请稍后重试");
+    }
+
 
 
 }

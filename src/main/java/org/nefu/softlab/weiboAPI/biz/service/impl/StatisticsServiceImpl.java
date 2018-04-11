@@ -97,10 +97,7 @@ public class StatisticsServiceImpl implements StatisticsService{
         return null;    // 没找到
     }
 
-    @Override
-    public List<Map<String, Object>> getMemoryStatus() {
-        return sshDao.getServerMemStatus();
-    }
+
 
     @Override
     public List<Map<String, Object>> getDiskSpaceStatus() {
