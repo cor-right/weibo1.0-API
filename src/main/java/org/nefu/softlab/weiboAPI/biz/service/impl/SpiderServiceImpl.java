@@ -1,20 +1,20 @@
 package org.nefu.softlab.weiboAPI.biz.service.impl;
 
+import com.mongodb.ServerAddress;
 import org.nefu.softlab.weiboAPI.biz.service.SpiderService;
 import org.nefu.softlab.weiboAPI.common.util.DateUtil;
 import org.nefu.softlab.weiboAPI.common.util.PropertiesUtil;
 import org.nefu.softlab.weiboAPI.core.dao.mapper.DailyRecordMapper;
+import org.nefu.softlab.weiboAPI.core.dao.mongo.StatisticsDao;
 import org.nefu.softlab.weiboAPI.core.dao.redis.IPPoolDao;
 import org.nefu.softlab.weiboAPI.core.dao.shell.SSHDao;
+import org.nefu.softlab.weiboAPI.core.po.DailyRecord;
 import org.nefu.softlab.weiboAPI.core.pojo.SpiderDataPojo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @Transactional
@@ -26,6 +26,7 @@ public class SpiderServiceImpl implements SpiderService{
     // dao
     private final IPPoolDao ippoolDao;
     private final SSHDao sshDao;
+    private final StatisticsDao statisticsDao;
 
     // static
     private static final String SPIDER_PROPERTY_FILENAME = "spider.properties";
@@ -34,10 +35,11 @@ public class SpiderServiceImpl implements SpiderService{
     private final SpiderDataPojo spiderDataPojo;
 
     @Autowired
-    public SpiderServiceImpl(DailyRecordMapper dailyRecordMapper, IPPoolDao ippoolDao, SSHDao sshDao, SpiderDataPojo spiderDataPojo) {
+    public SpiderServiceImpl(DailyRecordMapper dailyRecordMapper, IPPoolDao ippoolDao, SSHDao sshDao, StatisticsDao statisticsDao, SpiderDataPojo spiderDataPojo) {
         this.dailyRecordMapper = dailyRecordMapper;
         this.ippoolDao = ippoolDao;
         this.sshDao = sshDao;
+        this.statisticsDao = statisticsDao;
         this.spiderDataPojo = spiderDataPojo;
     }
 
@@ -93,6 +95,25 @@ public class SpiderServiceImpl implements SpiderService{
     @Override
     public List<Map<String, Object>> getMemoryStatus() {
         return sshDao.getServerMemStatus();
+    }
+
+    @Override
+    public List<Map<String, Object>> getTodayIncreasement() {
+        List<Map<String, Object>> returnList = new LinkedList<>();
+        // 获取当前集群各机器的数据
+        List<Map<String, Object>> currentStatus = statisticsDao.getSplitedStatistics();     // 当前最新的记录
+        currentStatus.sort(Comparator.comparingInt(a -> ((ServerAddress)a.get("host")).getHost().hashCode()));
+        List<DailyRecord> lastDayRecords = dailyRecordMapper.getLastDayRecord();        // 昨天的记录
+        // 遍历并进行配置
+        for (int i = 0; i < currentStatus.size(); i++) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("host", lastDayRecords.get(i).getSocket()
+                    .substring(0, lastDayRecords.get(i).getSocket().indexOf(":"))); // 设置host
+            map.put("grow_disk", (Double)currentStatus.get(i).get("storageSize") - lastDayRecords.get(i).getRecordsize());  // 设置增长的记录容量
+            map.put("grow_count", (Integer)currentStatus.get(i).get("count") - lastDayRecords.get(i).getRecordnumber());    // 设置增长的记录条数
+            returnList.add(map);
+        }
+        return returnList;
     }
 
 }

@@ -113,6 +113,23 @@ public class SpiderAPI {
                 : new RESTData(1, "当前系统繁忙请稍后重试");
     }
 
+    /**
+     * 获取当天的数据增量
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "increase/today", method = RequestMethod.GET)
+    public RESTData getTodayIncreasement(HttpServletRequest request) {
+        // 用户验证
+        User user = userService.getUserByToken(TokenUtil.getToken(request));
+        if (user == null)
+            return new RESTData(1, "请检查当前登陆状态");
+        logger.info("GET Get today increasement : " + JsonUtil.getJsonString(user));
+        // 执行查询
+        List returnData = spiderService.getTodayIncreasement();
+        return returnData != null ? new RESTData(returnData)
+                : new RESTData(1, "当前系统繁忙请稍后重试");
+    }
 
 
 }

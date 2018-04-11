@@ -32,5 +32,11 @@ public interface SpiderService {
      */
     List<Map<String, Object>> getMemoryStatus();
 
+    /**
+     * 获取当日数据的增量
+     * @return
+     */
+    List<Map<String, Object>> getTodayIncreasement();
+
 
 }
