@@ -420,9 +420,9 @@
     "data" : {
         "status" : true,
         "nodeCount" : 12,
-        "curRate" : 348,
-        "curAvgRate" : 24,
-        "rateInFive" : 367
+        "curRate" : 348.45,
+        "curAvgRate" : 24.34,
+        "rateInFive" : 367.54
     }
 }
 ```

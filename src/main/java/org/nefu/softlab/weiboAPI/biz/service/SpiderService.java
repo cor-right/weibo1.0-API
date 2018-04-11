@@ -13,5 +13,11 @@ public interface SpiderService {
      */
     Map getIppoolData();
 
+    /**
+     * 获取爬虫的状态信息
+     * @return
+     */
+    Map getStatus();
+
 
 }

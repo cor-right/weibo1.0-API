@@ -2,7 +2,9 @@ package org.nefu.softlab.weiboAPI.biz.service.impl;
 
 import org.nefu.softlab.weiboAPI.biz.service.SpiderService;
 import org.nefu.softlab.weiboAPI.common.util.DateUtil;
+import org.nefu.softlab.weiboAPI.common.util.PropertiesUtil;
 import org.nefu.softlab.weiboAPI.core.dao.redis.IPPoolDao;
+import org.nefu.softlab.weiboAPI.core.pojo.SpiderDataPojo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,15 +20,16 @@ public class SpiderServiceImpl implements SpiderService{
     // dao
     private final IPPoolDao ippoolDao;
 
-    // data
-    private long recordCountFiveSec = 0;        // 五秒前的数据库的记录数
-    private long recordCountOneSec = 0;        // 一秒后的数据库的记录数
+    // static
+    private static final String SPIDER_PROPERTY_FILENAME = "spider.properties";
 
-    // logger
+    // pojo
+    private final SpiderDataPojo spiderDataPojo;
 
     @Autowired
-    public SpiderServiceImpl(IPPoolDao ippoolDao) {
+    public SpiderServiceImpl(IPPoolDao ippoolDao, SpiderDataPojo spiderDataPojo) {
         this.ippoolDao = ippoolDao;
+        this.spiderDataPojo = spiderDataPojo;
     }
 
     @Override
@@ -46,21 +49,22 @@ public class SpiderServiceImpl implements SpiderService{
         return ippoolData;
     }
 
-    // getter and setter
-
-    public long getRecordCountFiveSec() {
-        return recordCountFiveSec;
+    @Override
+    public Map getStatus() {
+        Map<String, Object> returnMap = new HashMap<>();
+        // 获取节点数
+        int nodecount = PropertiesUtil.getPropertiesIntValue(SPIDER_PROPERTY_FILENAME, "spider.node.enable");
+        boolean enablestatus = PropertiesUtil.getPropertiesBooleanValue(SPIDER_PROPERTY_FILENAME, "spider.status.enable");
+        double currate = spiderDataPojo.getSpeedInOneSec();
+        double fiveminRate = spiderDataPojo.getSpeedInFiveMin();
+        double avgrate = currate / nodecount;
+        // 配置数据并返回
+        returnMap.put("status", enablestatus);
+        returnMap.put("nodeCount", nodecount);
+        returnMap.put("curRate", currate);
+        returnMap.put("curAvgRate", avgrate);
+        returnMap.put("rateInFive", fiveminRate);
+        return returnMap;
     }
 
-    public void setRecordCountFiveSec(long recordCountFiveSec) {
-        this.recordCountFiveSec = recordCountFiveSec;
-    }
-
-    public long getRecordCountOneSec() {
-        return recordCountOneSec;
-    }
-
-    public void setRecordCountOneSec(long recordCountOneSec) {
-        this.recordCountOneSec = recordCountOneSec;
-    }
 }

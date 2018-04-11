@@ -58,5 +58,18 @@ public class SpiderAPI {
                 : new RESTData(returnMap);
     }
 
+    @RequestMapping(value = "status", method = RequestMethod.GET)
+    public RESTData getStatus(HttpServletRequest request) {
+        // 用户验证
+        User user = userService.getUserByToken(TokenUtil.getToken(request));
+        if (user == null)
+            return new RESTData(1, "请检查当前登陆状态");
+        logger.info("GET Get Spider Status Data : " + JsonUtil.getJsonString(user));
+        // 执行查询
+        Map returnMap = spiderService.getStatus();
+        return returnMap == null ? new RESTData(1, "获取爬虫状态信息失败，请联系系统管理员")
+                : new RESTData(returnMap);
+    }
+
 
 }

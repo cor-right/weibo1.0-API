@@ -68,9 +68,9 @@ public class NoteRecordCount implements Job, Serializable {
         // 保存数据
         spiderDataPojo.setSpeedInFiveMin(speed);
         // 测试
-        logger.info("Current speed In one sec is :" + spiderDataPojo.getSpeedInOneSec() + " 条/秒");
-        logger.info("Average speed in sive minutes is : " + spiderDataPojo.getSpeedInFiveMin());
-        logger.info("Storage list size is : " + spiderDataPojo.getCountInFiveMinutes().size());
+//        logger.info("Current speed In one sec is :" + spiderDataPojo.getSpeedInOneSec() + " 条/秒");
+//        logger.info("Average speed in sive minutes is : " + spiderDataPojo.getSpeedInFiveMin());
+//        logger.info("Storage list size is : " + spiderDataPojo.getCountInFiveMinutes().size());
     }
 
     // setter
