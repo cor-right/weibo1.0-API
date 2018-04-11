@@ -1,3 +1,5 @@
+# noinspection SqlNoDataSourceInspectionForFile
+
 # 用户表
 # `t_user`
 CREATE TABLE `t_user` (
@@ -43,4 +45,15 @@ CREATE TABLE `t_user_info` (
   PRIMARY KEY (`uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-#
+# 微博数据量日常记录表
+# `t_monitor_record_daily`
+CREATE TABLE `t_monitor_record_daily` (
+  `rid` char(32) NOT NULL,
+  `socket` varchar(32) NOT NULL,
+  `recordnumber` int(64) DEFAULT NULL,
+  `recordsize` int(64) DEFAULT NULL,
+  `date` char(16) NOT NULL,
+  `saveTimestamp` varchar(64) DEFAULT NULL,
+  PRIMARY KEY (`rid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+

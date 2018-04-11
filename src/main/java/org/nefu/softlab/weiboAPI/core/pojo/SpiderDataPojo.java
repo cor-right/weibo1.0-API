@@ -27,8 +27,10 @@ public class SpiderDataPojo {
     private double speedInOneSec = 0.0D;    // 一秒钟内的爬虫速率
     private double speedInFiveMin = 0.0D;   // 五分钟内的爬虫速率
 
+
+
     // times
-    private int detectiveTimes = 0;   // 爬虫测速的次数
+    //private int detectiveTimes = 0;   // 爬虫测速的次数
 
     // enable status
     //private boolean fiveAvgSpeed = false;       // 是否满足计算五分钟内平均速率的条件（也就是系统中测速的次数达到了500次则置为true）
@@ -76,12 +78,5 @@ public class SpiderDataPojo {
         this.newcount = newcount;
     }
 
-    public int getDetectiveTimes() {
-        return detectiveTimes;
-    }
-
-    public void setDetectiveTimes(int detectiveTimes) {
-        this.detectiveTimes = detectiveTimes;
-    }
 
 }

@@ -14,14 +14,15 @@
         <!--数据库链接地址账号密码-->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://222.27.227.131:3306/weibo" userId="root" password="Data-Node-MySQL">
         </jdbcConnection>
+
         <javaTypeResolver>
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
         <!--生成Model类存放位置-->
-        <!--<javaModelGenerator targetPackage="com.demo.model" targetProject="src/main/java">-->
+        <javaModelGenerator targetPackage="com.demo.model" targetProject="src/main/java">
             <!--<property name="enableSubPackages" value="true"/>-->
             <!--<property name="trimStrings" value="true"/>-->
-        <!--</javaModelGenerator>-->
+        </javaModelGenerator>
         <!--生成映射文件存放位置-->
         <sqlMapGenerator targetPackage="org.demo.mapper" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
@@ -36,9 +37,7 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
         <!--生成对应表及类名-->
-        <!--<table tableName="t_user" domainObjectName="User" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
-        <table tableName="t_user_log" domainObjectName="Log" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-        <!--<table tableName="t_weibo_user" domainObjectName="WeiboUser" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
-        <!--<table tableName="t_weibo_data" domainObjectName="WeiboData" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
+        <table tableName="t_monitor_record_daily" domainObjectName="DailyRecord" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
     </context>
+
 </generatorConfiguration>

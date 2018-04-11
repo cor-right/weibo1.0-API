@@ -19,6 +19,7 @@ public class DateUtil {
 
     //  formatter
     private static final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private static final SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 
     // logger
     private static final Logger logger = LoggerFactory.getLogger(DateUtil.class);
@@ -63,6 +64,14 @@ public class DateUtil {
         Date oldtime = parseTimestamp(oldtimestamp);
         Date newtime = parseTimestamp(newtimestamp);
         return newtime.getTime() - oldtime.getTime();
+    }
+
+    /**
+     * 获取只包含当前日期的时间戳
+     * @return
+     */
+    public static String getCurDate() {
+        return dateFormatter.format(new Date());
     }
 
 

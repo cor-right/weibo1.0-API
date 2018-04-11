@@ -13,6 +13,11 @@ public interface SpiderScheduler {
      */
     void startSpiderSpeedCountTrigger();
 
+    /**
+     * 每天记录一次集群的数据量
+     * 用于之后的统计
+     */
+    void dailyRecordTrigger();
 
 
 }

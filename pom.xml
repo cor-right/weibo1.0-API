@@ -165,7 +165,7 @@
                     <overwrite>true</overwrite>
                     <!-- 自动生成的配置 -->
                     <configurationFile>
-                        reference/mybatis-generator.xml.back</configurationFile>
+                        reference/mybatis-generator.xml</configurationFile>
                 </configuration>
             </plugin>
 
