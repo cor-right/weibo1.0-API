@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -58,6 +59,11 @@ public class SpiderAPI {
                 : new RESTData(returnMap);
     }
 
+    /**
+     * 获取爬虫的速率等相关信息
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "status", method = RequestMethod.GET)
     public RESTData getStatus(HttpServletRequest request) {
         // 用户验证
@@ -70,6 +76,25 @@ public class SpiderAPI {
         return returnMap == null ? new RESTData(1, "获取爬虫状态信息失败，请联系系统管理员")
                 : new RESTData(returnMap);
     }
+
+    /**
+     * 获取近七天内集群的容量数据
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "sevenday", method = RequestMethod.GET)
+    public RESTData getSevenDayDataRange(HttpServletRequest request) {
+        // 用户验证
+        User user = userService.getUserByToken(TokenUtil.getToken(request));
+        if (user == null)
+            return new RESTData(1, "请检查当前登陆状态");
+        logger.info("GET Get Seven Day Status Data : " + JsonUtil.getJsonString(user));
+        // 执行查询
+        List returnMap = spiderService.getSevenday();
+        return returnMap == null ? new RESTData(1, "获取爬虫状态信息失败，请联系系统管理员")
+                : new RESTData(returnMap);
+    }
+
 
 
 }

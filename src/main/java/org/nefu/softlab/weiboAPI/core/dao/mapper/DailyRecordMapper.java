@@ -6,9 +6,18 @@ import org.nefu.softlab.weiboAPI.core.po.DailyRecord;
 import org.apache.ibatis.type.JdbcType;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 @Mapper
 public interface DailyRecordMapper {
+
+    // written
+    @Select("SELECT * FROM t_monitor_record_daily WHERE `socket`='0.0.0.0:27017' ORDER BY `date` ASC ,`socket` ASC LIMIT 7")
+    List<DailyRecord> getLastSevenDayRecord();
+
+    // generated
+
     @Delete({
         "delete from t_monitor_record_daily",
         "where rid = #{rid,jdbcType=CHAR}"

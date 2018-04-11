@@ -58,7 +58,7 @@ public class SaveRecordDaily implements Job, Serializable{
                     DailyRecord record = new DailyRecord();
                     // 设置单个记录属性
                     record.setRid(UUIDUtil.getRandomID());      // 设置RID
-                    record.setSocket(((ServerAddress)map.get("host")).getSocketAddress().toString());   // 设置socket
+                    record.setSocket(((ServerAddress)map.get("host")).getSocketAddress().toString().replace("/", ""));   // 设置socket
                     record.setRecordnumber((Integer)map.get("count"));  // 设置记录数
                     record.setRecordsize((Double)map.get("storageSize"));    // 设置存储容量
                     record.setDate(curDate);  // 设置当前日期

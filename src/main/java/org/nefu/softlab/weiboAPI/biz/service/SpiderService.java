@@ -1,5 +1,6 @@
 package org.nefu.softlab.weiboAPI.biz.service;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,6 +19,12 @@ public interface SpiderService {
      * @return
      */
     Map getStatus();
+
+    /**
+     * 获取七天内的数据量
+     * @return
+     */
+    List getSevenday();
 
 
 }

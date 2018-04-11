@@ -3,19 +3,25 @@ package org.nefu.softlab.weiboAPI.biz.service.impl;
 import org.nefu.softlab.weiboAPI.biz.service.SpiderService;
 import org.nefu.softlab.weiboAPI.common.util.DateUtil;
 import org.nefu.softlab.weiboAPI.common.util.PropertiesUtil;
+import org.nefu.softlab.weiboAPI.core.dao.mapper.DailyRecordMapper;
 import org.nefu.softlab.weiboAPI.core.dao.redis.IPPoolDao;
+import org.nefu.softlab.weiboAPI.core.po.DailyRecord;
 import org.nefu.softlab.weiboAPI.core.pojo.SpiderDataPojo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 @Service
 @Transactional
 public class SpiderServiceImpl implements SpiderService{
+
+    // mapper
+    private final DailyRecordMapper dailyRecordMapper;
 
     // dao
     private final IPPoolDao ippoolDao;
@@ -27,7 +33,8 @@ public class SpiderServiceImpl implements SpiderService{
     private final SpiderDataPojo spiderDataPojo;
 
     @Autowired
-    public SpiderServiceImpl(IPPoolDao ippoolDao, SpiderDataPojo spiderDataPojo) {
+    public SpiderServiceImpl(DailyRecordMapper dailyRecordMapper, IPPoolDao ippoolDao, SpiderDataPojo spiderDataPojo) {
+        this.dailyRecordMapper = dailyRecordMapper;
         this.ippoolDao = ippoolDao;
         this.spiderDataPojo = spiderDataPojo;
     }
@@ -65,6 +72,20 @@ public class SpiderServiceImpl implements SpiderService{
         returnMap.put("curAvgRate", avgrate);
         returnMap.put("rateInFive", fiveminRate);
         return returnMap;
+    }
+
+    @Override
+    public List getSevenday() {
+        List<Map<String, Object>> returnList = new LinkedList<>();
+        dailyRecordMapper.getLastSevenDayRecord().stream()  // 获取七天内的数据并且遍历
+                .forEach(dailyRecord -> {
+                    Map<String, Object> data = new HashMap<>();
+                    data.put("date", dailyRecord.getDate());
+                    data.put("count", dailyRecord.getRecordnumber());
+                    data.put("disk", dailyRecord.getRecordsize());
+                    returnList.add(data);
+                });
+        return returnList;
     }
 
 }
