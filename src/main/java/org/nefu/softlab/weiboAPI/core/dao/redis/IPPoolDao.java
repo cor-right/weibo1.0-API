@@ -1,11 +1,13 @@
 package org.nefu.softlab.weiboAPI.core.dao.redis;
 
 import org.junit.jupiter.api.Test;
+import org.nefu.softlab.weiboAPI.common.component.connectionPool.RedisPool;
 import org.nefu.softlab.weiboAPI.common.config.RedisConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
 
 import java.util.List;
 
@@ -17,9 +19,6 @@ import java.util.List;
 @Repository
 public class IPPoolDao extends BaseDao{
 
-    //  jedis
-    private final Jedis jedis;
-
     // logger
     private static final Logger logger = LoggerFactory.getLogger(IPPoolDao.class);
 
@@ -29,8 +28,6 @@ public class IPPoolDao extends BaseDao{
     private final String refreshtimekey;
 
     public IPPoolDao() {
-        this.jedis = new Jedis(RedisConfig.host, RedisConfig.port, RedisConfig.db);
-        jedis.connect();
         this.namespace = RedisConfig.namespace;
         this.ippookey = RedisConfig.namespace + ":ippool";
         this.refreshtimekey = RedisConfig.namespace + ":refreshTime";
@@ -41,7 +38,12 @@ public class IPPoolDao extends BaseDao{
      * @return
      */
     public List<String> getIPList() {
-        return getList(this.jedis, this.ippookey);
+        Jedis jedis = RedisPool.getJedis();
+        try {
+            return getList(jedis, this.ippookey);
+        } finally {
+            RedisPool.returnJedis(jedis);
+        }
     }
 
     /**
@@ -51,7 +53,12 @@ public class IPPoolDao extends BaseDao{
      * @return
      */
     public List<String> getPoolRefreshTime() {
-        return getList(this.jedis, this.refreshtimekey);
+        Jedis jedis = RedisPool.getJedis();
+        try {
+            return getList(jedis, this.refreshtimekey);
+        } finally {
+            RedisPool.returnJedis(jedis);
+        }
     }
 
 

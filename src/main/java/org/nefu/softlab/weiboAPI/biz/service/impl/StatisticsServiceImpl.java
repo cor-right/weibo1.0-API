@@ -2,6 +2,8 @@ package org.nefu.softlab.weiboAPI.biz.service.impl;
 
 import com.mongodb.ServerAddress;
 import org.nefu.softlab.weiboAPI.biz.service.StatisticsService;
+import org.nefu.softlab.weiboAPI.common.component.connectionPool.MongoPool;
+import org.nefu.softlab.weiboAPI.common.config.MongoConfig;
 import org.nefu.softlab.weiboAPI.core.dao.mongo.StatisticsDao;
 import org.nefu.softlab.weiboAPI.core.dao.shell.SSHDao;
 import org.slf4j.Logger;
@@ -44,8 +46,6 @@ public class StatisticsServiceImpl implements StatisticsService{
         for (int i = 0; i < returnList.size(); i++) {
             Map<String, Object> currentStatisticsMap = returnList.get(i);
             Map<String, Object> currentDiskStatus = serverDiskStatus.get(i);
-            System.out.println(currentDiskStatus.get("host"));
-            System.out.println(((ServerAddress)currentStatisticsMap.get("host")).getHost());
             long left = (long)currentDiskStatus.get("all") - (long)currentDiskStatus.get("used");
             currentStatisticsMap.put("diskLeft", left);
             currentStatisticsMap.put("diskAll", currentDiskStatus.get("all"));
@@ -60,7 +60,7 @@ public class StatisticsServiceImpl implements StatisticsService{
         if (dataList == null || dataList.size() == 0)
             return null;
         // 配置数据库服务器数目信息
-        returnMap.put("serverCount", StatisticsDao.getClients().size());
+        returnMap.put("serverCount", MongoConfig.hostlist.length);
         returnMap.put("okCount", dataList.size());
         // 初始化统计信息
         returnMap.put("count", 0L);

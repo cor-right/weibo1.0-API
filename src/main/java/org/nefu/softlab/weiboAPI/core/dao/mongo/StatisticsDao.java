@@ -2,7 +2,7 @@ package org.nefu.softlab.weiboAPI.core.dao.mongo;
 
 import com.mongodb.CommandResult;
 import com.mongodb.MongoClient;
-import com.mongodb.client.MongoDatabase;
+import org.nefu.softlab.weiboAPI.common.component.connectionPool.MongoPool;
 import org.nefu.softlab.weiboAPI.common.config.MongoConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
 
 /**
  * Created by Jiaxu_Zou on 2018-4-6
@@ -22,24 +21,8 @@ import java.util.stream.Stream;
 @Repository
 public class StatisticsDao extends BaseDao{
 
-    // connections
-    private static final List<MongoClient> clients;
-    private static final List<MongoDatabase> databases;
-
     // logger
     private static final Logger logger = LoggerFactory.getLogger(StatisticsDao.class);
-
-    static {    // 初始化连接
-        clients = new ArrayList<>();
-        databases = new ArrayList<>();
-        Stream.of(MongoConfig.hostlist)
-                .forEach(host -> {
-                    MongoClient client = new MongoClient(host, MongoConfig.port);
-                    clients.add(client);    // 初始化DBMS连接
-                    databases.add(client.getDatabase(MongoConfig.database));    // 初始化DB连接
-                });
-        logger.info(clients.size() + " connections been built successfully ");
-    }
 
     /**
      * 获取多台主机的数据量统计信息形成的列表
@@ -48,6 +31,7 @@ public class StatisticsDao extends BaseDao{
     public List<Map<String, Object>> getSplitedStatistics() {
         // 遍历数据库的连接获取DBCollection，藉此形成Map的List
         List<Map<String, Object>> returnList = new ArrayList<>();
+        List<MongoClient> clients = MongoPool.getClientList();
         clients.stream()
                 .forEach(client -> {
                     Map<String, Object> data = new HashMap<>();
@@ -62,6 +46,7 @@ public class StatisticsDao extends BaseDao{
                     data.put("host", client.getAddress());  // 加入basedao中无法加入的属性
                     returnList.add(data);   // 添加到返回值当中
                 });
+        MongoPool.returnClientList(clients);
         return returnList;
     }
 
@@ -71,20 +56,14 @@ public class StatisticsDao extends BaseDao{
      */
     public long getTotalRecordCount() {
         final Long[] sum = {0L};    // 流操作内部只能有逻辑常量
+        List<MongoClient> clients = MongoPool.getClientList();
         clients.stream()
                 .forEach(client -> {
                     CommandResult stats = super.getStats(client.getDB(MongoConfig.database).getCollection(MongoConfig.collection)); // 调用basedao中的方法
                     sum[0] += (long)((int)stats.get("count"));
                 });
+        MongoPool.returnClientList(clients);
         return sum[0];
     }
 
-
-    public static List<MongoClient> getClients() {
-        return clients;
-    }
-
-    public static List<MongoDatabase> getDatabases() {
-        return databases;
-    }
 }

@@ -2,6 +2,7 @@ package org.nefu.softlab.weiboAPI.core.dao.shell;
 
 import ch.ethz.ssh2.Connection;
 import org.junit.jupiter.api.Test;
+import org.nefu.softlab.weiboAPI.common.component.connectionPool.SSHPool;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ public class SSHDaoTest extends SSHDao{
 
     @Test
     public void test() {
-        List<Connection> connections = getConnections();
+        List<Connection> connections = SSHPool.getConnection();
         connections.stream()
                 .forEach(connection -> {
                     System.out.println("IP : " + getIP(connection));
