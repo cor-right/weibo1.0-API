@@ -3,8 +3,11 @@ package org.nefu.softlab.weiboAPI.core.dao.mapper;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
 import org.nefu.softlab.weiboAPI.core.dao.mapper.provider.WeiboUserSqlProvider;
+import org.nefu.softlab.weiboAPI.core.po.User;
 import org.nefu.softlab.weiboAPI.core.po.WeiboUser;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * Created by Jiaxu_Zou on 2018-4-7
@@ -12,6 +15,13 @@ import org.springframework.stereotype.Repository;
 @Mapper
 @Repository
 public interface WeiboUserMapper {
+
+    // written
+
+    @Select("SELECT * FROM t_weibo_user ORDER BY `fansNum` DESC LIMIT 50")
+    List<WeiboUser> getFamousUsers();
+
+    // generated
     @Delete({
         "delete from t_weibo_user",
         "where uid = #{uid,jdbcType=CHAR}"

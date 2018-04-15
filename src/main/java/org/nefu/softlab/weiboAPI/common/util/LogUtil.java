@@ -1,8 +1,11 @@
 package org.nefu.softlab.weiboAPI.common.util;
 
 import org.nefu.softlab.weiboAPI.core.po.Log;
+import org.nefu.softlab.weiboAPI.core.po.User;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Jiaxu_Zou on 2018-4-6
@@ -30,6 +33,17 @@ public class LogUtil {
         log.setIp(request.getRemoteAddr()); // IP
         log.setHostname(request.getRemoteHost());   // 客户端主机名
         return log;
+    }
+
+    /**
+     * 以合理的方式返回需要打印的用户信息
+     * @return
+     */
+    public static String getUserInfo(User user) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("UID", user.getUid());
+        map.put("username", user.getUsername());
+        return JsonUtil.getJsonString(map);
     }
 
 }

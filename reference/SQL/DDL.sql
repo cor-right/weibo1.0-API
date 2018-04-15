@@ -44,6 +44,9 @@ CREATE TABLE `t_user_info` (
   `signature` varchar(256) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+# 粉丝数的索引
+# 用于查询微博大咖
+CREATE INDEX `fansIndex` ON `t_weibo_user` (fansNum DESC);  # 按照降序创建fansNum字段的降序索引
 
 # 微博数据量日常记录表
 # `t_monitor_record_daily`

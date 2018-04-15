@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * Created by Jiaxu_Zou on 2018-4-13
+ *
  * 爬虫监控相关的业务逻辑
  */
 public interface SpiderService {
