@@ -9,13 +9,11 @@ import org.nefu.softlab.weiboAPI.core.po.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Jiaxu_Zou on 2018-4-15
@@ -42,6 +40,11 @@ public class ContentAPI {
         this.contentService = contentService;
     }
 
+    /**
+     * 获取粉丝数TOP的微博大咖
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "user/famous", method = RequestMethod.GET)
     public RESTData getFamousSinaUser(HttpServletRequest request) {
         // 用户验证
@@ -51,8 +54,33 @@ public class ContentAPI {
         logger.info("GET Get famous Sina User Data : " + LogUtil.getUserInfo(user));
         // 执行查询
         List returnList = contentService.getFamousSinaUser();
-        return returnList == null ? new RESTData(1, "获取IP相关信息失败，请联系系统管理员")
+        return returnList == null ? new RESTData(1, "获取微博TOP用户相关信息失败，请联系系统管理员")
                 : new RESTData(returnList);
     }
+
+
+    /**
+     * 获取记录数
+     * 可以根据参数自行选择获取哪种参数
+     * 因为获取参数还是挺费时间的
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "number", method = RequestMethod.GET)
+    public RESTData getRecordsNumber(@RequestParam("user") Boolean haveUser, @RequestParam("weibo") Boolean haveWeibo,  HttpServletRequest request) {
+        // 验证
+        User user = userService.getUserByToken(TokenUtil.getToken(request));
+        if (haveUser == null || haveWeibo == null)
+            return new RESTData(1, "请检查您输入的参数是否正确");
+        if (user == null)
+            return new RESTData(1, "请检查当前登陆状态");
+        logger.info("GET Get famous Sina User Data : " + LogUtil.getUserInfo(user));
+        // 执行查询
+        Map returnMap = contentService.getRecordsNumber(haveUser, haveWeibo);
+        return returnMap == null ? new RESTData(1, "获取系统中用户或微博数失败，请联系系统管理员")
+                : new RESTData(returnMap);
+    }
+
+
 
 }

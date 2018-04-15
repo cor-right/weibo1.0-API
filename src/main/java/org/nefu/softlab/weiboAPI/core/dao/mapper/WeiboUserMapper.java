@@ -21,6 +21,9 @@ public interface WeiboUserMapper {
     @Select("SELECT * FROM t_weibo_user ORDER BY `fansNum` DESC LIMIT 50")
     List<WeiboUser> getFamousUsers();
 
+    @Select("SELECT COUNT(uid) FROM t_weibo_user")
+    Long selectUserCount();
+
     // generated
     @Delete({
         "delete from t_weibo_user",
