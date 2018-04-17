@@ -2,8 +2,8 @@ package org.nefu.softlab.weiboAPI.biz.service.impl;
 
 import com.mongodb.ServerAddress;
 import org.nefu.softlab.weiboAPI.biz.service.SpiderService;
+import org.nefu.softlab.weiboAPI.common.config.SpiderConfig;
 import org.nefu.softlab.weiboAPI.common.util.DateUtil;
-import org.nefu.softlab.weiboAPI.common.util.PropertiesUtil;
 import org.nefu.softlab.weiboAPI.core.dao.mapper.DailyRecordMapper;
 import org.nefu.softlab.weiboAPI.core.dao.mongo.StatisticsDao;
 import org.nefu.softlab.weiboAPI.core.dao.redis.IPPoolDao;
@@ -18,7 +18,7 @@ import java.util.*;
 
 @Service
 @Transactional
-public class SpiderServiceImpl implements SpiderService{
+public class SpiderServiceImpl implements SpiderService, SpiderConfig{
 
     // mapper
     private final DailyRecordMapper dailyRecordMapper;
@@ -29,7 +29,7 @@ public class SpiderServiceImpl implements SpiderService{
     private final StatisticsDao statisticsDao;
 
     // static
-    private static final String SPIDER_PROPERTY_FILENAME = "spider.properties";
+//    private static final String SPIDER_PROPERTY_FILENAME = "spider.properties";
 
     // pojo
     private final SpiderDataPojo spiderDataPojo;
@@ -64,14 +64,12 @@ public class SpiderServiceImpl implements SpiderService{
     public Map getStatus() {
         Map<String, Object> returnMap = new HashMap<>();
         // 获取节点数
-        int nodecount = PropertiesUtil.getPropertiesIntValue(SPIDER_PROPERTY_FILENAME, "spider.node.enable");
-        boolean enablestatus = PropertiesUtil.getPropertiesBooleanValue(SPIDER_PROPERTY_FILENAME, "spider.status.enable");
         double currate = spiderDataPojo.getSpeedInOneSec();
         double fiveminRate = spiderDataPojo.getSpeedInFiveMin();
-        double avgrate = currate / nodecount;
+        double avgrate = currate / NODE_ENABLE;
         // 配置数据并返回
-        returnMap.put("status", enablestatus);
-        returnMap.put("nodeCount", nodecount);
+        returnMap.put("status", SPIDER_ENBALE);
+        returnMap.put("nodeCount", NODE_ENABLE);
         returnMap.put("curRate", currate);
         returnMap.put("curAvgRate", avgrate);
         returnMap.put("rateInFive", fiveminRate);

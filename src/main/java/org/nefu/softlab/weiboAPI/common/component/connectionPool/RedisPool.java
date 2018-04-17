@@ -78,7 +78,7 @@ public class RedisPool {
             else
                 return createJedis();
         } finally {
-            logger.info("One jedis connection left connection pool, left threads number is : " + jedisCollection.size());
+            logger.debug("One jedis connection left connection pool, left threads number is : " + jedisCollection.size());
             lock.unlock();  // 解锁
         }
     }
@@ -95,7 +95,7 @@ public class RedisPool {
                 jedisCollection.offer(jedis);      // 放回线程池
             else
                 return ;
-            logger.info("One jedis connection return back to pool , left connection number is : " + jedisCollection.size() );
+            logger.debug("One jedis connection return back to pool , left connection number is : " + jedisCollection.size() );
         } finally {
             lock.unlock();
         }

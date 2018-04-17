@@ -50,23 +50,25 @@ public class NoteRecordCount implements Job, Serializable {
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         long startmills = new Date().getTime();     // 获取方法执行的初试时间
-        // 获取最新的数据
-        long lastcount = statisticsDao.getTotalRecordCount();
-        long priviouscount = spiderDataPojo.getNewcount();
-        double speed = (lastcount - priviouscount) / (1000 + (new Date().getTime() - startmills)) * 1000;   // 单位是条/秒
+        long lastcount = statisticsDao.getTotalRecordCount();   // 最新的数据
+        long priviouscount = spiderDataPojo.getNewcount();  // 上一次的数据
+//        System.out.println("lastcount : " + lastcount);
+//        System.out.println("priviouscount : " + priviouscount);
+        double speedinone = ((double)(lastcount - priviouscount)) / (double)(new Date().getTime() - startmills + 1000) * 1000D;   // 单位是条/秒
         // 更新保存数据的pojo中的数据
         spiderDataPojo.setOldcount_one(priviouscount);
         spiderDataPojo.setNewcount(lastcount);
-        spiderDataPojo.setSpeedInOneSec(speed);
+        spiderDataPojo.setSpeedInOneSec(speedinone);
         // 保存到五分钟内的记录中，并进行测速
         List<Long> counts = spiderDataPojo.getCountInFiveMinutes();
         counts.add(lastcount);
         if (counts.size() > 300)    // 超过了五分钟
             counts.remove(0);
         long countBeforeFiveMin = counts.get(0);
-        speed = (lastcount - countBeforeFiveMin) / (1000 * 60 * 5 + (new Date().getTime() - startmills)) * 1000;   // 单位是条/秒
+        double speedinfive = ((double)(lastcount - countBeforeFiveMin)) / (counts.size() * 1.0);   // 单位是条/秒
         // 保存数据
-        spiderDataPojo.setSpeedInFiveMin(speed);
+        spiderDataPojo.setSpeedInFiveMin(speedinfive);
+        logger.info("Refresh current spider speed : speed in 1s - " + speedinone + " , speed in 5m - " + speedinfive);
         // 测试
 //        logger.info("Current speed In one sec is :" + spiderDataPojo.getSpeedInOneSec() + " 条/秒");
 //        logger.info("Average speed in sive minutes is : " + spiderDataPojo.getSpeedInFiveMin());

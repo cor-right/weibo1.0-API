@@ -94,7 +94,7 @@ public class SSHPool {
                 return createConnection(); // 否则创建新线程
             }
         } finally {
-            logger.info("One SSH connection left connection pool, left threads number is : " + connections.size());
+            logger.debug("One SSH connection left connection pool, left threads number is : " + connections.size());
             lock.unlock();  // 解锁
         }
     }
@@ -111,7 +111,7 @@ public class SSHPool {
                 connections.offer(connection);      // 放回线程池
             else
                 return ;
-            logger.info("One SSH connection return back to pool  , left connection number is : " + connections.size() );
+            logger.debug("One SSH connection return back to pool  , left connection number is : " + connections.size() );
         } finally {
             lock.unlock();
         }

@@ -1,7 +1,5 @@
 package org.nefu.softlab.weiboAPI.common.util;
 
-import org.junit.jupiter.api.Test;
-
 import java.security.MessageDigest;
 
 /**
@@ -33,10 +31,5 @@ public class MD5Util {
         return ret.toString();
     }
 
-    @Test
-    public void test() {
-        System.out.println(MD5("zjx199628"));
-        System.out.println("51D22F9C6B899ACB1CDD12F4BB9700E9");
-    }
 
 }

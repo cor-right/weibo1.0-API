@@ -86,7 +86,7 @@ public class MongoPool {
                 return createClientsList(); // 否则创建新线程
             }
         } finally {
-            logger.info("One mongoDB connection left connection pool, left threads number is : " + clients.size());
+            logger.debug("One mongoDB connection left connection pool, left threads number is : " + clients.size());
             lock.unlock();  // 解锁
         }
     }
@@ -103,7 +103,7 @@ public class MongoPool {
                 clients.offer(clientList);      // 放回线程池
             else
                 return ;
-            logger.info("One mongoDB connection return back to pool  , left connection number is : " + clients.size() );
+            logger.debug("One mongoDB connection return back to pool  , left connection number is : " + clients.size() );
         } finally {
             lock.unlock();
         }

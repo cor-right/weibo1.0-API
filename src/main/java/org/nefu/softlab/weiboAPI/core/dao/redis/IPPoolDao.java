@@ -61,7 +61,6 @@ public class IPPoolDao extends BaseDao{
         }
     }
 
-
     @Test
     public void test() {
         getPoolRefreshTime().stream()
