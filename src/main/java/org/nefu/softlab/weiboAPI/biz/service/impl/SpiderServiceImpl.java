@@ -102,11 +102,14 @@ public class SpiderServiceImpl implements SpiderService, SpiderConfig{
         List<Map<String, Object>> currentStatus = statisticsDao.getSplitedStatistics();     // 当前最新的记录
         currentStatus.sort(Comparator.comparingInt(a -> ((ServerAddress)a.get("host")).getHost().hashCode()));
         List<DailyRecord> lastDayRecords = dailyRecordMapper.getLastDayRecord();        // 昨天的记录
+        lastDayRecords.sort(Comparator.comparing(a -> a.getSocket()));         // 同样按照socket的顺序从小到大排序
         // 遍历并进行配置
         for (int i = 0; i < currentStatus.size(); i++) {
             Map<String, Object> map = new HashMap<>();
             map.put("host", lastDayRecords.get(i).getSocket()
                     .substring(0, lastDayRecords.get(i).getSocket().indexOf(":"))); // 设置host
+            System.out.println("list : " + lastDayRecords.get(i).getSocket());
+            System.out.println("list of map : "  + currentStatus.get(i).get("host"));
             map.put("grow_disk", (Double)currentStatus.get(i).get("storageSize") - lastDayRecords.get(i).getRecordsize());  // 设置增长的记录容量
             map.put("grow_count", (Integer)currentStatus.get(i).get("count") - lastDayRecords.get(i).getRecordnumber());    // 设置增长的记录条数
             returnList.add(map);

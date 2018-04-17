@@ -25,7 +25,7 @@ public interface DailyRecordMapper {
      * 获取当前最近的当天的数据量记录
      * @return
      */
-    @Select("SELECT * FROM `t_monitor_record_daily` WHERE `date`=(SELECT MAX(`date`) FROM `t_monitor_record_daily`) ORDER BY `socket` ASC LIMIT 1,5")
+    @Select("SELECT * FROM `t_monitor_record_daily` WHERE `date`=(SELECT MAX(`date`) FROM `t_monitor_record_daily`) ORDER BY `saveTimestamp` DESC, `socket` DESC LIMIT 0,4")
     List<DailyRecord> getLastDayRecord();
 
     // generated
