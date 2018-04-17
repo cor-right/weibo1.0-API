@@ -622,11 +622,63 @@
 - return :
 ```json
 {
+    "code": 0,
+    "message": "",
+    "data": {
+        "weibo": 635741152,
+        "user": 892764
+    }
+}
+```
+
+### 1.5.3 查询指定的记录
+- GET /api/content/records
+- desc : 
+    - 虽然是GET查询，但是也有很多指定的参数
+- payload : 
+    - uanme : 微博用户名，支持模糊匹配，查询结果按名字的匹配程度排序
+    - dataFrom : 微博记录的开始日期
+    - dateTo : 微博记录的结束日期
+    - pageNum : 期望得到的数据的页面号，第一页页号为1
+    - pageSize : 页面大小，即一页内的记录数，缺省值为10
+```json
+{
+    "uname" : "梨花带雨",
+    "dateFrom" : "2018-5-10",
+    "dateTo" : "2018-10-5",
+    "pageNum" : 1,
+    "pageSize" : 10
+}
+```
+- return :
+    - records : 查询到的微博数据
+        - uid : 微博用户的id
+        - nickname :  微博用户昵称
+        - headurl : 微博用户头像的路径
+        - time : 微博发布的时间
+        - content : 微博的内容
+    - pageNum : 返回给前端的页面的页面号
+    - weibo : 查询到符合条件的微博数
+    - user : 查询到符合条件的用户数
+```json
+{
     "code" : 0,
-    "message" : 1
+    "message" : "",
     "data" : {
-        "user" : ,
-        "weibo" : 
+        "records" : [
+            {
+                "uid": "1938284521",
+                "nickname": "李敏镐",
+                "headurl": "http://tva2.sinaimg.cn/crop.0.0.180.180.180/7387dfe9jw1e8qgp5bmzyj2050050aa8.jpg",
+                "wid" : "1938284521",
+                "time" : "2018-1-5 11:32:12",
+                "content" : "李敏镐：（原创）巴拉巴拉...~"
+            },
+            // ...
+        ],
+        "pageNum" : 1,
+        "weibo" : 1456484,
+        "user" : 4568654
     }
 }
 ```

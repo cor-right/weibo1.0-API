@@ -54,6 +54,8 @@ public class DateUtil {
     }
 
 
+
+
     /**
      * 获取两个时间戳之间的时间差，单位是毫秒
      * @param oldtimestamp
@@ -74,10 +76,19 @@ public class DateUtil {
         return dateFormatter.format(new Date());
     }
 
+    /**
+     * 将毫秒数转换为时间戳
+     * @param mills
+     * @return
+     */
+    public static String transferMillsToTimestamp(Long mills) {
+        return formatter.format(new Date(mills));
+    }
 
 
     @Test
     public void test() {
-        System.out.println(getCurDayInWeek());
+        long time = 1304438400000L;
+        System.out.println(formatter.format(new Date(time)));
     }
 }
