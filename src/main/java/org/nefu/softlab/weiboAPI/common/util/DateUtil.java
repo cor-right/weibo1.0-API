@@ -53,9 +53,6 @@ public class DateUtil {
         }
     }
 
-
-
-
     /**
      * 获取两个时间戳之间的时间差，单位是毫秒
      * @param oldtimestamp
@@ -77,6 +74,20 @@ public class DateUtil {
     }
 
     /**
+     * 将只包含日期的时间戳转换为Date
+     * @param date
+     * @return
+     */
+    public static Date parseDate(String date) {
+        try {
+            return dateFormatter.parse(date);
+        } catch (ParseException e) {
+            logger.error("Transfer datestamp string to date failed .");
+            return null;
+        }
+    }
+
+    /**
      * 将毫秒数转换为时间戳
      * @param mills
      * @return
@@ -85,6 +96,14 @@ public class DateUtil {
         return formatter.format(new Date(mills));
     }
 
+    /**
+     * 将时间转换为毫秒值
+     * @param date
+     * @return
+     */
+    public static long transferDateToMills(Date date) {
+        return date.getTime();
+    }
 
     @Test
     public void test() {

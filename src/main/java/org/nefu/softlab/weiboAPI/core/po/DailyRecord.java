@@ -1,6 +1,8 @@
 package org.nefu.softlab.weiboAPI.core.po;
 
-public class DailyRecord {
+import java.io.Serializable;
+
+public class DailyRecord implements Serializable{
 
     private String rid;
 

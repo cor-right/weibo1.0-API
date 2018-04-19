@@ -2,9 +2,14 @@ package org.nefu.softlab.weiboAPI.core.dao.mapper;
 
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
+import org.nefu.softlab.weiboAPI.core.dao.mapper.provider.DailyRecordSqlProvider;
 import org.nefu.softlab.weiboAPI.core.dao.mapper.provider.WeiboDataSqlProvider;
+import org.nefu.softlab.weiboAPI.core.po.DailyRecord;
 import org.nefu.softlab.weiboAPI.core.po.WeiboData;
 import org.springframework.stereotype.Repository;
+
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by Jiaxu_Zou on 2018-4-7
@@ -12,6 +17,19 @@ import org.springframework.stereotype.Repository;
 @Mapper
 @Repository
 public interface WeiboDataMapper {
+
+    // written
+
+    /**
+     * 获取指定的微博记录
+     * @param condition
+     * @return
+     */
+    @SelectProvider(type = WeiboDataSqlProvider.class, method = "selectRecords")
+    List<WeiboData> selectRecords(HashMap condition);
+
+    // generated
+
     @Delete({
         "delete from t_weibo_data",
         "where wid = #{wid,jdbcType=VARCHAR}"

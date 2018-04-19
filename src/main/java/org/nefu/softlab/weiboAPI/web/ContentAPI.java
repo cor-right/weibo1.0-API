@@ -5,6 +5,7 @@ import org.nefu.softlab.weiboAPI.biz.service.UserService;
 import org.nefu.softlab.weiboAPI.common.RESTData;
 import org.nefu.softlab.weiboAPI.common.util.LogUtil;
 import org.nefu.softlab.weiboAPI.common.util.TokenUtil;
+import org.nefu.softlab.weiboAPI.core.VO.RecordsSelectVo;
 import org.nefu.softlab.weiboAPI.core.po.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -80,6 +81,29 @@ public class ContentAPI {
         return returnMap == null ? new RESTData(1, "获取系统中用户或微博数失败，请联系系统管理员")
                 : new RESTData(returnMap);
     }
+
+    /**
+     *
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "records", method = RequestMethod.GET)
+    public RESTData getSpecificRecords(RecordsSelectVo vo, HttpServletRequest request) {
+        // 验证
+        User user = userService.getUserByToken(TokenUtil.getToken(request));
+        if (user == null)
+            return new RESTData(1, "请检查当前登陆状态");
+        logger.info("GET Get specific weibo records,  User :  : " + LogUtil.getUserInfo(user) + " | params : " + vo);
+        // 执行查询
+        Map returnMap = contentService.getSpecificRecords(vo);
+        return returnMap == null ? new RESTData(1, "查询微博数据失败，请联系系统管理员")
+                : new RESTData(returnMap);
+    }
+
+
+
+
+
 
 
 

@@ -1,11 +1,13 @@
 package org.nefu.softlab.weiboAPI.core.dao.mapper;
 
 import org.apache.ibatis.annotations.*;
+import org.nefu.softlab.weiboAPI.core.VO.RecordsSelectVo;
 import org.nefu.softlab.weiboAPI.core.dao.mapper.provider.DailyRecordSqlProvider;
 import org.nefu.softlab.weiboAPI.core.po.DailyRecord;
 import org.apache.ibatis.type.JdbcType;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Repository
@@ -18,7 +20,7 @@ public interface DailyRecordMapper {
      * 获取最近七天的总数据量记录
      * @return
      */
-    @Select("SELECT * FROM t_monitor_record_daily WHERE `socket`='0.0.0.0:27017' ORDER BY `date` ASC ,`socket` ASC LIMIT 7")
+    @Select("SELECT * FROM t_monitor_record_daily WHERE `socket`='0.0.0.0:27017' ORDER BY `date` DESC LIMIT 8")
     List<DailyRecord> getLastSevenDayRecord();
 
     /**

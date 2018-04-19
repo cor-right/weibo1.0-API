@@ -2,6 +2,7 @@ package org.nefu.softlab.weiboAPI.core.dao.mapper;
 
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
+import org.nefu.softlab.weiboAPI.core.VO.RecordsSelectVo;
 import org.nefu.softlab.weiboAPI.core.dao.mapper.provider.WeiboUserSqlProvider;
 import org.nefu.softlab.weiboAPI.core.po.User;
 import org.nefu.softlab.weiboAPI.core.po.WeiboUser;
@@ -18,13 +19,36 @@ public interface WeiboUserMapper {
 
     // written
 
-    @Select("SELECT * FROM t_weibo_user ORDER BY `fansNum` DESC LIMIT 50")
+    /**
+     * 获取TOP50的微博大咖
+     * @return
+     */
+    @Select("SELECT * FROM `t_weibo_user` ORDER BY `fansNum` DESC LIMIT 50")
     List<WeiboUser> getFamousUsers();
 
-    @Select("SELECT COUNT(uid) FROM t_weibo_user")
+    /**
+     * 获取微博用户数
+     * @return
+     */
+    @Select("SELECT COUNT(uid) FROM `t_weibo_user`")
     Long selectUserCount();
 
+    /**
+     * 查询指定用户
+     */
+    @Select("SELECT `uid` FROM `t_weibo_user` WHERE `nickname`=#{uname}")
+    String selectUidByName(String uname);
+
+    /**
+     * 根据用户名模糊查询出一大堆的UID出来
+     * 根据模糊查询的结果查出符合要求的十个用户出来
+     * @return list of uids
+     */
+    @Select("SELECT `uid` FROM `t_weibo_user` WHERE `nickname` LIKE #{uname}'%' ORDER BY `fansNum` DESC LIMIT 10;")
+        List<String> selectUidsbyName(RecordsSelectVo vo);
+
     // generated
+
     @Delete({
         "delete from t_weibo_user",
         "where uid = #{uid,jdbcType=CHAR}"

@@ -1,9 +1,14 @@
 package org.nefu.softlab.weiboAPI.core.dao.mapper.provider;
 
+import org.apache.ibatis.annotations.Select;
 import org.nefu.softlab.weiboAPI.core.po.DailyRecord;
 import org.apache.ibatis.jdbc.SQL;
 
+import java.util.Map;
+
 public class DailyRecordSqlProvider {
+
+    // generated
 
     public String insertSelective(DailyRecord record) {
         SQL sql = new SQL();

@@ -10,9 +10,9 @@ public class User implements Serializable {
 
     private String username;
 
-    private String passwd;
+    private transient String passwd;
 
-    private String token;
+    private transient String token;
 
     private String lastlogin;
 
