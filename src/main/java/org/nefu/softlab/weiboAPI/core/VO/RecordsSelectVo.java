@@ -1,4 +1,4 @@
-package org.nefu.softlab.weiboAPI.core.VO;
+package org.nefu.softlab.weiboAPI.core.vo;
 
 import java.io.Serializable;
 

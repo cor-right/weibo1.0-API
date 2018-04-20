@@ -1,13 +1,11 @@
 package org.nefu.softlab.weiboAPI.core.dao.mapper;
 
 import org.apache.ibatis.annotations.*;
-import org.nefu.softlab.weiboAPI.core.VO.RecordsSelectVo;
 import org.nefu.softlab.weiboAPI.core.dao.mapper.provider.DailyRecordSqlProvider;
 import org.nefu.softlab.weiboAPI.core.po.DailyRecord;
 import org.apache.ibatis.type.JdbcType;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
 import java.util.List;
 
 @Repository

@@ -22,8 +22,8 @@ public class WeiboDataSqlProvider {
         SQL sql = new SQL()
                 .SELECT("*")
                 .FROM("t_weibo_data");
-        if (condition.get("uids") != null && ((List)(condition.get("uids"))).size() > 0)    // 用户名限制
-            sql.WHERE("`uid` IN #{uids}");
+//        if (condition.get("uids") != null && ((List)(condition.get("uids"))).size() > 0)    // 用户名限制
+//            sql.WHERE("`uid` IN #{uids}");
         if (condition.get("from") != null && condition.get("to") != null)   // 日期限制
             sql.WHERE("`time` BETWEEN #{from} AND #{to}");
         else if (condition.get("from") != null)

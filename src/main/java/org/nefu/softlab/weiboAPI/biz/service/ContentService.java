@@ -1,8 +1,8 @@
 package org.nefu.softlab.weiboAPI.biz.service;
 
 import com.sun.org.apache.xpath.internal.operations.Bool;
-import org.nefu.softlab.weiboAPI.core.VO.RecordsSelectVo;
 import org.nefu.softlab.weiboAPI.core.po.WeiboUser;
+import org.nefu.softlab.weiboAPI.core.vo.RecordsSelectVo;
 
 import java.util.List;
 import java.util.Map;

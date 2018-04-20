@@ -5,8 +5,9 @@ import org.nefu.softlab.weiboAPI.biz.service.UserService;
 import org.nefu.softlab.weiboAPI.common.RESTData;
 import org.nefu.softlab.weiboAPI.common.util.LogUtil;
 import org.nefu.softlab.weiboAPI.common.util.TokenUtil;
-import org.nefu.softlab.weiboAPI.core.VO.RecordsSelectVo;
+
 import org.nefu.softlab.weiboAPI.core.po.User;
+import org.nefu.softlab.weiboAPI.core.vo.RecordsSelectVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

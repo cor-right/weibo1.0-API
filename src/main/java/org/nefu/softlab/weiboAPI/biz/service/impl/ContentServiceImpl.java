@@ -4,17 +4,17 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.nefu.softlab.weiboAPI.biz.service.ContentService;
 import org.nefu.softlab.weiboAPI.common.util.DateUtil;
-import org.nefu.softlab.weiboAPI.core.VO.RecordsSelectVo;
 import org.nefu.softlab.weiboAPI.core.dao.mapper.WeiboDataMapper;
 import org.nefu.softlab.weiboAPI.core.dao.mapper.WeiboUserMapper;
 import org.nefu.softlab.weiboAPI.core.dao.mongo.StatisticsDao;
 import org.nefu.softlab.weiboAPI.core.po.WeiboData;
 import org.nefu.softlab.weiboAPI.core.po.WeiboUser;
+import org.nefu.softlab.weiboAPI.core.vo.RecordsSelectVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +22,7 @@ import java.util.Map;
  * Created by Jiaxu_Zou on 2018-4-15
  */
 @Service
+@Transactional
 public class ContentServiceImpl implements ContentService {
 
     // mapper
@@ -68,23 +69,26 @@ public class ContentServiceImpl implements ContentService {
         // 如果设置了用户的限定，先精确查询用户的uid，之后再模糊查询，这里顺便确定用户的数量
 //        int userNum = 0;
 //        int weiboNum = 0;
-        if (vo.getUname() != null && vo.getUname().trim().equals("") == false) {
-            List<String> uids = new LinkedList<>();
-            String uid = weiboUserMapper.selectUidByName(vo.getUname());
-            if (uid != null && uid.equals("") == false) {
-                uids.add(uid);
+//        if (vo.getUname() != null && vo.getUname().trim().equals("") == false) {
+//            List<String> uids = new LinkedList<>();
+//            String uid = weiboUserMapper.selectUidByName(vo.getUname());
+//            if (uid != null && uid.equals("") == false) {
+//                uids.add(uid);
 //                userNum = 1;    // 更新用户数
-            }
-            else {
-                uids = weiboUserMapper.selectUidsbyName(vo);
+//            }
+//            else {
+//                uids = weiboUserMapper.selectUidsbyName(vo);
 //                userNum = 100;  // 更新用户数
-            }
+//            }
 //            weiboNum = weiboDataMapper.selectWeiboCount(uids);  // 更新微博数
-            condition.put("uids", uids);    // 设置微博查询的参数
-        }
+//            condition.put("uids", uids);    // 设置微博查询的参数
+//        }
         // 设置分页
+        System.out.println(vo.getPageNum());
+        System.out.println(vo.getPageSize());
         PageHelper.startPage(vo.getPageNum(), vo.getPageSize());
         List<WeiboData> weiboData = weiboDataMapper.selectRecords((HashMap) condition);
+        System.out.println(weiboData.size());
         PageInfo pageInfo = new PageInfo<>(weiboData, vo.getPageSize());
         // 配置返回信息
         Map<String, Object> returnMap = new HashMap<>();

@@ -2,10 +2,10 @@ package org.nefu.softlab.weiboAPI.core.dao.mapper;
 
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
-import org.nefu.softlab.weiboAPI.core.VO.RecordsSelectVo;
 import org.nefu.softlab.weiboAPI.core.dao.mapper.provider.WeiboUserSqlProvider;
 import org.nefu.softlab.weiboAPI.core.po.User;
 import org.nefu.softlab.weiboAPI.core.po.WeiboUser;
+import org.nefu.softlab.weiboAPI.core.vo.RecordsSelectVo;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
