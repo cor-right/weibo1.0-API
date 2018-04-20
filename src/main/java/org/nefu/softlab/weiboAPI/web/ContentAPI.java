@@ -1,13 +1,16 @@
 package org.nefu.softlab.weiboAPI.web;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.nefu.softlab.weiboAPI.biz.service.ContentService;
 import org.nefu.softlab.weiboAPI.biz.service.UserService;
 import org.nefu.softlab.weiboAPI.common.RESTData;
 import org.nefu.softlab.weiboAPI.common.util.LogUtil;
 import org.nefu.softlab.weiboAPI.common.util.TokenUtil;
 
+import org.nefu.softlab.weiboAPI.core.VO.RecordsSelectVo;
 import org.nefu.softlab.weiboAPI.core.po.User;
-import org.nefu.softlab.weiboAPI.core.vo.RecordsSelectVo;
+import org.nefu.softlab.weiboAPI.core.po.WeiboData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,10 +98,11 @@ public class ContentAPI {
         if (user == null)
             return new RESTData(1, "请检查当前登陆状态");
         logger.info("GET Get specific weibo records,  User :  : " + LogUtil.getUserInfo(user) + " | params : " + vo);
-        // 执行查询
-        Map returnMap = contentService.getSpecificRecords(vo);
-        return returnMap == null ? new RESTData(1, "查询微博数据失败，请联系系统管理员")
-                : new RESTData(returnMap);
+        // 执行查询，这里涉及到分页的逻辑
+        PageInfo<WeiboData> page  = contentService.getSpecificRecords(vo);
+        return page == null ?
+                new RESTData(1, "查询微博数据失败，请联系系统管理员")
+                : contentService.getUid(vo) == null ?  new RESTData(0, "未查询到当前用户的信息", page) : new RESTData(page);
     }
 
 

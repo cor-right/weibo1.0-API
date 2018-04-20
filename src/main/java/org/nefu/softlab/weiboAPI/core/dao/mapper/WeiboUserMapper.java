@@ -2,10 +2,9 @@ package org.nefu.softlab.weiboAPI.core.dao.mapper;
 
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
+import org.nefu.softlab.weiboAPI.core.VO.RecordsSelectVo;
 import org.nefu.softlab.weiboAPI.core.dao.mapper.provider.WeiboUserSqlProvider;
-import org.nefu.softlab.weiboAPI.core.po.User;
 import org.nefu.softlab.weiboAPI.core.po.WeiboUser;
-import org.nefu.softlab.weiboAPI.core.vo.RecordsSelectVo;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -44,7 +43,7 @@ public interface WeiboUserMapper {
      * 根据模糊查询的结果查出符合要求的十个用户出来
      * @return list of uids
      */
-    @Select("SELECT `uid` FROM `t_weibo_user` WHERE `nickname` LIKE #{uname}'%' ORDER BY `fansNum` DESC LIMIT 10;")
+    @Select("SELECT `uid` FROM `t_weibo_user` WHERE `nickname` LIKE '${uname}%' ORDER BY `fansNum` DESC")
         List<String> selectUidsbyName(RecordsSelectVo vo);
 
     // generated

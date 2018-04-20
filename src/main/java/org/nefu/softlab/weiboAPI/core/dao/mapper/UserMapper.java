@@ -38,7 +38,6 @@ public interface UserMapper {
     @Select("SELECT * FROM `t_user` WHERE `token`=#{token}")
     User selectUserByToken(String token);
 
-
     // auto generated
     @Delete({
         "delete from t_user",

@@ -134,6 +134,19 @@
             <artifactId>pagehelper</artifactId>
             <version>5.1.3</version>
         </dependency>
+        <!-- Springboot 整合PageHelper时需要添加的依赖
+            之前因为这个没有添加导致分页无法实现
+         -->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-autoconfigure</artifactId>
+            <version>1.2.3</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <version>1.2.3</version>
+        </dependency>
 
     </dependencies>
 

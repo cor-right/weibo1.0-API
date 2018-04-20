@@ -2,6 +2,7 @@ package org.nefu.softlab.weiboAPI.core.dao.mapper;
 
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
+import org.nefu.softlab.weiboAPI.core.VO.RecordsSelectVo;
 import org.nefu.softlab.weiboAPI.core.dao.mapper.provider.DailyRecordSqlProvider;
 import org.nefu.softlab.weiboAPI.core.dao.mapper.provider.WeiboDataSqlProvider;
 import org.nefu.softlab.weiboAPI.core.po.DailyRecord;
@@ -28,8 +29,10 @@ public interface WeiboDataMapper {
     @SelectProvider(type = WeiboDataSqlProvider.class, method = "selectRecords")
     List<WeiboData> selectRecords(HashMap condition);
 
-    // generated
+//    @Select("SELECT * FROM `t_weibo_data` WHERE (`uid`=#{uid_1} OR `uid`=#{uid_2}) AND `time` BETWEEN #{dateFrom} AND #{dateTo} ORDER BY `time` DESC")
+//    List<WeiboData> selectRecords(RecordsSelectVo vo);
 
+    // generated
     @Delete({
         "delete from t_weibo_data",
         "where wid = #{wid,jdbcType=VARCHAR}"

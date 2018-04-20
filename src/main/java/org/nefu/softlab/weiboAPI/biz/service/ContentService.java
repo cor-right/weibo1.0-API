@@ -1,8 +1,9 @@
 package org.nefu.softlab.weiboAPI.biz.service;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
+import com.github.pagehelper.PageInfo;
+import org.nefu.softlab.weiboAPI.core.VO.RecordsSelectVo;
+import org.nefu.softlab.weiboAPI.core.po.WeiboData;
 import org.nefu.softlab.weiboAPI.core.po.WeiboUser;
-import org.nefu.softlab.weiboAPI.core.vo.RecordsSelectVo;
 
 import java.util.List;
 import java.util.Map;
@@ -28,10 +29,14 @@ public interface ContentService {
      */
     Map<String, Object> getRecordsNumber(Boolean user, Boolean weibo);
 
+    List<String> getUids(RecordsSelectVo vo);
+
     /**
      * 检索指定条件下的数据的业务逻辑
      * @param vo
      * @return
      */
-    Map getSpecificRecords(RecordsSelectVo vo);
+    PageInfo<WeiboData> getSpecificRecords(RecordsSelectVo vo);
+
+    String getUid(RecordsSelectVo vo);
 }

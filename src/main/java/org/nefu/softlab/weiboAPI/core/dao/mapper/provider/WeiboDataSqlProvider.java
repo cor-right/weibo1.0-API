@@ -14,25 +14,15 @@ public class WeiboDataSqlProvider {
     // written
 
     /**
-     *
+     * 根据是否存在uids构造出两种sql
      * @param condition
      * @return
      */
     public String selectRecords(Map<String, Object> condition) {
-        SQL sql = new SQL()
-                .SELECT("*")
-                .FROM("t_weibo_data");
-//        if (condition.get("uids") != null && ((List)(condition.get("uids"))).size() > 0)    // 用户名限制
-//            sql.WHERE("`uid` IN #{uids}");
-        if (condition.get("from") != null && condition.get("to") != null)   // 日期限制
-            sql.WHERE("`time` BETWEEN #{from} AND #{to}");
-        else if (condition.get("from") != null)
-            sql.WHERE("`time` >= #{from}");
-        else if (condition.get("to") != null)
-            sql.WHERE("`time` <= #{to}");
-        sql.ORDER_BY("`time` DESC");
-        sql.ORDER_BY("`uid` ASC");
-        return sql.toString();
+        if (condition.get("uid") != null && ((String)condition.get("uid")).trim().equals("") == false)
+            return "SELECT * FROM `t_weibo_data` WHERE `uid`=#{uid} AND `time` >= #{from} AND `time` <= #{to}";
+        else
+            return "SELECT * FROM `t_weibo_data` WHERE `time`>=#{from} AND `time`<=#{to}";
     }
 
     // generated
