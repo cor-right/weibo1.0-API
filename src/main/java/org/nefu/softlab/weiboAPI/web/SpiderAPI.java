@@ -4,6 +4,7 @@ import org.nefu.softlab.weiboAPI.biz.service.SpiderService;
 import org.nefu.softlab.weiboAPI.biz.service.UserService;
 import org.nefu.softlab.weiboAPI.common.RESTData;
 import org.nefu.softlab.weiboAPI.common.util.JsonUtil;
+import org.nefu.softlab.weiboAPI.common.util.LogUtil;
 import org.nefu.softlab.weiboAPI.common.util.TokenUtil;
 import org.nefu.softlab.weiboAPI.core.po.User;
 import org.slf4j.Logger;
@@ -52,7 +53,7 @@ public class SpiderAPI {
         User user = userService.getUserByToken(TokenUtil.getToken(request));
         if (user == null)
             return new RESTData(1, "请检查当前登陆状态");
-        logger.info("GET Get Ippool Data : " + JsonUtil.getJsonString(user));
+        logger.info("GET Get Ippool Data : " + LogUtil.getUserInfo(user));
         // 执行查询
         Map returnMap = spiderService.getIppoolData();
         return returnMap == null ? new RESTData(1, "获取IP相关信息失败，请联系系统管理员")
@@ -70,7 +71,7 @@ public class SpiderAPI {
         User user = userService.getUserByToken(TokenUtil.getToken(request));
         if (user == null)
             return new RESTData(1, "请检查当前登陆状态");
-        logger.info("GET Get Spider Status Data : " + JsonUtil.getJsonString(user));
+        logger.info("GET Get Spider Status Data : " + LogUtil.getUserInfo(user));
         // 执行查询
         Map returnMap = spiderService.getStatus();
         return returnMap == null ? new RESTData(1, "获取爬虫状态信息失败，请联系系统管理员")
@@ -88,7 +89,7 @@ public class SpiderAPI {
         User user = userService.getUserByToken(TokenUtil.getToken(request));
         if (user == null)
             return new RESTData(1, "请检查当前登陆状态");
-        logger.info("GET Get Seven Day Status Data : " + JsonUtil.getJsonString(user));
+        logger.info("GET Get Seven Day Status Data : " + LogUtil.getUserInfo(user));
         // 执行查询
         List returnMap = spiderService.getSevenday();
         return returnMap == null ? new RESTData(1, "获取爬虫状态信息失败，请联系系统管理员")
@@ -106,7 +107,7 @@ public class SpiderAPI {
         User user = userService.getUserByToken(TokenUtil.getToken(request));
         if (user == null)
             return new RESTData(1, "请检查当前登陆状态");
-        logger.info("GET Get Memory Status : " + JsonUtil.getJsonString(user));
+        logger.info("GET Get Memory Status : " + LogUtil.getUserInfo(user));
         // 执行查询
         List returnData = spiderService.getMemoryStatus();
         return returnData != null ? new RESTData(returnData)
@@ -124,7 +125,7 @@ public class SpiderAPI {
         User user = userService.getUserByToken(TokenUtil.getToken(request));
         if (user == null)
             return new RESTData(1, "请检查当前登陆状态");
-        logger.info("GET Get today increasement : " + JsonUtil.getJsonString(user));
+        logger.info("GET Get today increasement : " + LogUtil.getUserInfo(user));
         // 执行查询
         List returnData = spiderService.getTodayIncreasement();
         return returnData != null ? new RESTData(returnData)

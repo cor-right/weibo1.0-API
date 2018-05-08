@@ -21,7 +21,7 @@ public interface MongoConfig {
     String username = null;
     String passwd = null;
 
-    int port = 27017;
+    int port = 27018;
     String database = "Sina";
     String collection = "weibo";
 

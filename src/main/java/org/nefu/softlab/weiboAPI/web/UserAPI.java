@@ -46,7 +46,7 @@ public class UserAPI {
      */
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public RESTData postLogin(@RequestBody User user, HttpServletRequest request) {
-        logger.info("POST Post Login : " + JsonUtil.getJsonString(user));
+        logger.info("POST Post Login : " + LogUtil.getUserInfo(user));
         // 检查参数是否存在
         if (user.getUsername() == null || user.getPasswd() == null || user.getUsername().trim().equals("") == true || user.getPasswd().trim().equals("") == true)
             return new RESTData(1, "用户名或密码不能为空");
@@ -72,7 +72,7 @@ public class UserAPI {
      */
     @RequestMapping(value = "register", method = RequestMethod.POST)
     public RESTData postRegister(@RequestBody User user, HttpServletRequest request) {
-        logger.info("POST Post Register : " + JsonUtil.getJsonString(user));
+        logger.info("POST Post Register : " + LogUtil.getUserInfo(user));
         // 做一些最基本的格式判断
         if (user.getUsername() == null || user.getPasswd() == null || user.getUsername().trim().equals("") == true || user.getPasswd().trim().equals("") == true)
             return new RESTData(1, "用户名或密码不能为空");
@@ -125,7 +125,7 @@ public class UserAPI {
     @RequestMapping(value = "login", method = RequestMethod.DELETE)
     public RESTData deleteLogin(HttpServletRequest request) {
         User user = userService.getUserByToken(TokenUtil.getToken(request));
-        logger.info("DELETE Delete Login : " + JsonUtil.getJsonString(user));
+        logger.info("DELETE Delete Login : " + LogUtil.getUserInfo(user));
         if (user == null)   // 登陆状态不正确
             return new RESTData(1, "请检查当前登陆状态");
         // 执行注销逻辑

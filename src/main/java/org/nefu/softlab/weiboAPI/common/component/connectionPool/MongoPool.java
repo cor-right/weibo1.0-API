@@ -21,7 +21,7 @@ import java.util.stream.Stream;
 public class MongoPool {
 
     // 参数
-    public static final int POOL_SIZE = 10;
+    public static final int POOL_SIZE = 20;
 
     // 内置线程池
     public static Queue<List<MongoClient>> clients;
@@ -101,8 +101,12 @@ public class MongoPool {
             lock.lock();
             if (clients.size() < POOL_SIZE)
                 clients.offer(clientList);      // 放回线程池
-            else
+            else {
+                clientList.stream().forEach(client -> {
+                    client.close(); // 关闭连接
+                });
                 return ;
+            }
             logger.debug("One mongoDB connection return back to pool  , left connection number is : " + clients.size() );
         } finally {
             lock.unlock();

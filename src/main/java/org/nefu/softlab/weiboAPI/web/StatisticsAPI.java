@@ -4,6 +4,7 @@ import org.nefu.softlab.weiboAPI.biz.service.StatisticsService;
 import org.nefu.softlab.weiboAPI.biz.service.UserService;
 import org.nefu.softlab.weiboAPI.common.RESTData;
 import org.nefu.softlab.weiboAPI.common.util.JsonUtil;
+import org.nefu.softlab.weiboAPI.common.util.LogUtil;
 import org.nefu.softlab.weiboAPI.common.util.TokenUtil;
 import org.nefu.softlab.weiboAPI.core.po.User;
 import org.slf4j.Logger;
@@ -49,7 +50,7 @@ public class StatisticsAPI {
         User user = userService.getUserByToken(TokenUtil.getToken(request));
         if (user == null)
             return new RESTData(1, "请检查当前登陆状态");
-        logger.info("GET Get Splited Statistics : " + JsonUtil.getJsonString(user));
+        logger.info("GET Get Splited Statistics : " + LogUtil.getUserInfo(user));
         // 执行查询
         List<Map<String, Object>> returnData = statisticsService.getSplitedStatistics();
         return returnData != null ? new RESTData(returnData)
@@ -67,7 +68,7 @@ public class StatisticsAPI {
         User user = userService.getUserByToken(TokenUtil.getToken(request));
         if (user == null)
             return new RESTData(1, "请检查当前登陆状态");
-        logger.info("GET Get Total Statistics : " + JsonUtil.getJsonString(user));
+        logger.info("GET Get Total Statistics : " + LogUtil.getUserInfo(user));
         // 执行查询
         Map<String, Object> returnData = statisticsService.getTotalStatistics();
         return returnData != null ? new RESTData(returnData)
@@ -86,7 +87,7 @@ public class StatisticsAPI {
         User user = userService.getUserByToken(TokenUtil.getToken(request));
         if (user == null)
             return new RESTData(1, "请检查当前登陆状态");
-        logger.info("GET Get Specific Server Statistics : " + JsonUtil.getJsonString(user) + ", { socket : " + socket + "}");
+        logger.info("GET Get Specific Server Statistics : " + LogUtil.getUserInfo(user) + ", { socket : " + socket + "}");
         // 执行查询
         Map<String, Object> returnData = statisticsService.getSpecificServerStatistics(socket);
         return returnData != null ? new RESTData(returnData)
@@ -104,7 +105,7 @@ public class StatisticsAPI {
         User user = userService.getUserByToken(TokenUtil.getToken(request));
         if (user == null)
             return new RESTData(1, "请检查当前登陆状态");
-        logger.info("GET Get Disk Memory Status : " + JsonUtil.getJsonString(user));
+        logger.info("GET Get Disk Memory Status : " + LogUtil.getUserInfo(user));
         // 执行查询
         List returnData = statisticsService.getDiskSpaceStatus();
         return returnData != null ? new RESTData(returnData)
